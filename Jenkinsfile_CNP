@@ -34,11 +34,6 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 
 withPipeline(type, product, component) {
     installCharts()
-
-    if ("demo" != "${env.BRANCH_NAME}") {
-        enableAksStagingDeployment()
-        disableLegacyDeployment()
-    }
     loadVaultSecrets(secrets)
 
     after('functionalTest:preview') {
