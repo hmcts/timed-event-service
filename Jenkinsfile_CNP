@@ -35,7 +35,8 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 withPipeline(type, product, component) {
     installCharts()
     loadVaultSecrets(secrets)
-
+    enableAksStagingDeployment()
+    disableLegacyDeployment()
     after('functionalTest:preview') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/site/serenity/**/*'
     }
