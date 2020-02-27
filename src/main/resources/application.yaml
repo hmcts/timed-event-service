@@ -1,0 +1,16 @@
+server:
+  port: 8095
+
+management:
+  endpoint:
+    health:
+      show-details: "always"
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: health, info, prometheus
+
+spring:
+  application:
+    name: Timed Event Service
