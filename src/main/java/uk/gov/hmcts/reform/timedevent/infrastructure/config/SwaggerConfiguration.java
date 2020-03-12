@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.timed.event.config;
+package uk.gov.hmcts.reform.timedevent.infrastructure.config;
 
 import static com.google.common.collect.Lists.newArrayList;
 
