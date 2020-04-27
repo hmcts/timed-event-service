@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.timed.event.controllers;
+package uk.gov.hmcts.reform.timedevent.infrastructure.controllers;
 
 import static org.springframework.http.ResponseEntity.ok;
 
