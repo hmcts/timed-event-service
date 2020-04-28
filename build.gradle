@@ -109,8 +109,8 @@ project.tasks['sonarqube'].dependsOn jacocoTestReport
 
 sonarqube {
   properties {
-    property "sonar.projectName", "Reform :: timed-event-service"
-    property "sonar.projectKey", "uk.gov.hmcts.reform:timed-event-service"
+    property "sonar.projectName", "Reform :: ia-timed-event-service"
+    property "sonar.projectKey", "uk.gov.hmcts.reform:ia-timed-event-service"
     property "sonar.coverage.jacoco.xmlReportPaths", "${jacocoTestReport.reports.xml.destination.path}"
   }
 }
@@ -210,7 +210,7 @@ test {
 mainClassName = 'uk.gov.hmcts.reform.timedevent.Application'
 
 bootJar {
-  archiveName = 'timed-event-service.jar'
+  archiveName = 'ia-timed-event-service.jar'
 
   manifest {
     attributes('Implementation-Version': project.version.toString())

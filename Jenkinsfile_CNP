@@ -1,6 +1,6 @@
 #!groovy
 properties([
-    [$class: 'GithubProjectProperty', projectUrlStr: 'https://github.com/hmcts/timed-event-service.git'],
+    [$class: 'GithubProjectProperty', projectUrlStr: 'https://github.com/hmcts/ia-timed-event-service.git'],
     pipelineTriggers([[$class: 'GitHubPushTrigger']])
 ])
 
