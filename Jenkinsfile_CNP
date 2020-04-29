@@ -33,6 +33,11 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 }
 
 withPipeline(type, product, component) {
+
+    env.CCD_URL = "http://ccd-data-store-api-aat.service.core-compute-aat.internal"
+    env.IDAM_URL = "https://idam-web-public.aat.platform.hmcts.net"
+    env.S2S_URL = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
+
     installCharts()
     loadVaultSecrets(secrets)
     enableAksStagingDeployment()

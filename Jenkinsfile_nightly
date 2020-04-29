@@ -38,6 +38,10 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 withNightlyPipeline(type, product, component) {
     env.TEST_URL = params.URL_TO_TEST
 
+    env.CCD_URL = "http://ccd-data-store-api-aat.service.core-compute-aat.internal"
+    env.IDAM_URL = "https://idam-web-public.aat.platform.hmcts.net"
+    env.S2S_URL = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
+
     loadVaultSecrets(secrets)
 
     enableSecurityScan()
