@@ -105,15 +105,15 @@ jacocoTestReport {
   }
 }
 
-project.tasks['sonarqube'].dependsOn jacocoTestReport
-
 sonarqube {
   properties {
     property "sonar.projectName", "Reform :: ia-timed-event-service"
-    property "sonar.projectKey", "uk.gov.hmcts.reform:ia-timed-event-service"
+    property "sonar.projectKey", "IATIMEDEVENTSERVICE"
     property "sonar.coverage.jacoco.xmlReportPaths", "${jacocoTestReport.reports.xml.destination.path}"
   }
 }
+
+project.tasks['sonarqube'].dependsOn test, integration, jacocoTestReport
 
 dependencyUpdates.resolutionStrategy {
   componentSelection { rules ->
@@ -136,13 +136,23 @@ dependencyCheck {
   // range of 0-10 fails the build, anything greater and it doesn't fail the build
   failBuildOnCVSS = System.getProperty('dependencyCheck.failBuild') == 'true' ? 0 : 11
   suppressionFile = 'config/owasp/suppressions.xml'
+  // excludes *Test* source configurations from scan
+  skipConfigurations = configurations.collect { it.name }.findAll { it.contains('Test') }
 }
 
 dependencyManagement {
   dependencies {
-    dependency group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.64'
+    dependency group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.65'
+
+    // CVE-2019-17569, CVE-2020-1935, CVE-2020-1938
+    dependencySet(group: 'org.apache.tomcat.embed', version: '9.0.31') {
+      entry 'tomcat-embed-core'
+      entry 'tomcat-embed-el'
+      entry 'tomcat-embed-websocket'
+    }
+
     // CVE-2018-10237 - Unbounded memory allocation
-    dependencySet(group: 'com.google.guava', version: '28.2-jre') {
+    dependencySet(group: 'com.google.guava', version: '29.0-jre') {
       entry 'guava'
     }
   }
@@ -158,10 +168,21 @@ repositories {
 }
 
 def versions = [
-  junit           : '5.5.0',
-  reformLogging   : '5.1.1',
-  springBoot      : springBoot.class.package.implementationVersion,
-  springfoxSwagger: '2.9.2'
+    junit           : '5.6.2',
+    junitPlatform   : '1.6.2',
+    reformLogging   : '5.1.1',
+    springBoot      : springBoot.class.package.implementationVersion,
+    springfoxSwagger: '2.9.2'
+]
+
+ext.libraries = [
+    junit5: [
+        "org.junit.jupiter:junit-jupiter-api:${versions.junit}",
+        "org.junit.jupiter:junit-jupiter-engine:${versions.junit}",
+        "org.junit.jupiter:junit-jupiter-params:${versions.junit}",
+        "org.junit.platform:junit-platform-commons:${versions.junitPlatform}",
+        "org.junit.platform:junit-platform-engine:${versions.junitPlatform}"
+    ]
 ]
 
 dependencies {
@@ -172,26 +193,29 @@ dependencies {
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-oauth2-client'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-oauth2-resource-server'
 
+  // CVE-2019-17195
+  implementation group: 'com.nimbusds', name: 'nimbus-jose-jwt', version: '7.9'
+
   implementation group: 'uk.gov.hmcts.reform', name: 'health-spring-boot-starter', version: '0.0.5'
 
   implementation group: 'io.springfox', name: 'springfox-swagger2', version: versions.springfoxSwagger
-  implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: versions.springfoxSwagger
 
   implementation group: 'uk.gov.hmcts.reform', name: 'logging', version: versions.reformLogging
   implementation group: 'uk.gov.hmcts.reform', name: 'logging-appinsights', version: versions.reformLogging
-  implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-hystrix', version: '2.2.1.RELEASE'
+  implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-hystrix', version: '2.2.2.RELEASE'
+  implementation group: 'uk.gov.hmcts.reform', name: 'properties-volume-spring-boot-starter', version: '0.0.4'
 
   implementation group: 'uk.gov.hmcts.reform.auth', name: 'auth-checker-lib', version: '2.1.4'
 
-  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: versions.junit
-  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: versions.junit
-  testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: versions.junit
+  testImplementation libraries.junit5
+  testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', {
+    exclude group: 'junit', module: 'junit'
+    exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+  }
 
   testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '3.3.3'
-  testImplementation group: 'ru.lanwen.wiremock', name: 'wiremock-junit5', version: '1.3.1'
-
   testImplementation group: 'com.github.tomakehurst', name: 'wiremock', version: '2.23.2'
-  testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+  testImplementation group: 'ru.lanwen.wiremock', name: 'wiremock-junit5', version: '1.3.1'
   testImplementation group: 'org.springframework.security', name: 'spring-security-test'
 
   integrationTestCompile sourceSets.main.runtimeClasspath
@@ -210,7 +234,9 @@ test {
 mainClassName = 'uk.gov.hmcts.reform.timedevent.Application'
 
 bootJar {
-  archiveName = 'ia-timed-event-service.jar'
+  getArchiveFileName().set(provider {
+    'ia-timed-event-service.jar'
+  })
 
   manifest {
     attributes('Implementation-Version': project.version.toString())
