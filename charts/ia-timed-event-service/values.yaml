@@ -1,19 +1,16 @@
 java:
-  image: 'https://hmctspublic.azurecr.io/ia/timed-event-service:latest'
   applicationPort: 8095
+  image: 'hmctspublic.azurecr.io/ia/timed-event-service:latest'
+  ingressHost: ia-timed-event-service-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
   aadIdentityName: ia
   environment:
-    IDAM_URL: "http://idam-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal"
+    IDAM_URL: "https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net"
     S2S_URL: "http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal"
     CCD_URL: "http://ccd-data-store-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal"
   keyVaults:
     ia:
+      resourceGroup: ia
       secrets:
-        - system-username
-        - system-password
         - idam-client-id
         - idam-secret
-        - idam-redirect-uri
-        - s2s-secret
-        - s2s-microservice
         - AppInsightsInstrumentationKey
