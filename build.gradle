@@ -195,10 +195,6 @@ dependencies {
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-oauth2-client'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-oauth2-resource-server'
 
-  // CVE-2020-9488
-  implementation group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j', version: '2.13.2'
-  implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.13.2'
-
   // CVE-2019-17195
   implementation group: 'com.nimbusds', name: 'nimbus-jose-jwt', version: '7.9'
 
