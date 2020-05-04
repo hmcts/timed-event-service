@@ -12,4 +12,7 @@ java:
       secrets:
         - idam-client-id
         - idam-secret
+        - idam-redirect-uri
+        - system-username
+        - system-password
         - AppInsightsInstrumentationKey
