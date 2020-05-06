@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum Event {
 
+    EXAMPLE("example"),
+
     @JsonEnumDefaultValue
     UNKNOWN("unknown");
 

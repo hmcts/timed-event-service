@@ -1,13 +1,8 @@
 package uk.gov.hmcts.reform.timedevent.testutils;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
-import static com.github.tomakehurst.wiremock.matching.RequestPatternBuilder.newRequestPattern;
 import static uk.gov.hmcts.reform.timedevent.testutils.StaticPortWiremockFactory.WIREMOCK_PORT;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.http.RequestMethod;
-import com.github.tomakehurst.wiremock.stubbing.StubMapping;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +21,7 @@ import uk.gov.hmcts.reform.timedevent.Application;
 @TestPropertySource(properties = {
     "CCD_URL=http://127.0.0.1:" + WIREMOCK_PORT + "/ccd",
     "IDAM_URL=http://127.0.0.1:" + WIREMOCK_PORT + "/idam",
+    "S2S_URL=http://127.0.0.1:" + WIREMOCK_PORT + "/s2s",
     "IA_IDAM_CLIENT_ID=ia",
     "IA_IDAM_SECRET=something"
 })
@@ -41,16 +37,5 @@ public class SpringBootIntegrationTest {
     @BeforeEach
     public void stubRequests(@Wiremock(factory = StaticPortWiremockFactory.class) WireMockServer server) {
 
-        server.addStubMapping(
-            new StubMapping(
-                newRequestPattern(RequestMethod.GET, urlEqualTo("/ccd/some-example"))
-                    .build(),
-                aResponse()
-                    .withStatus(200)
-                    .withHeader("Content-Type", "application/json")
-                    .withBody("{}}")
-                    .build()
-            )
-        );
     }
 }

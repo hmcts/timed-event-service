@@ -14,8 +14,8 @@ management:
 spring:
   application:
     name: Timed Event Service
-    main:
-      allow-bean-definition-overriding: true
+  main:
+    allow-bean-definition-overriding: true
   jackson.date-format: yyyy-MM-dd
   security:
     oauth2:
@@ -38,6 +38,9 @@ health:
       response: '"status":"UP"'
     serviceAuth:
       uri: ${S2S_URL:http://127.0.0.1:4502}/health
+      response: '"status":"UP"'
+    ccd:
+      uri: ${CCD_URL:http://127.0.0.1:4452}/health
       response: '"status":"UP"'
 
 security:
@@ -68,3 +71,11 @@ idam:
     username: ${IA_SYSTEM_USERNAME:ia-system-user@fake.hmcts.net}
     password: ${IA_SYSTEM_PASSWORD:London05}
     scope: "openid profile roles"
+  s2s-auth:
+    totp_secret: ${IA_S2S_SECRET:AAAAAAAAAAAAAAAC}
+    microservice: ${IA_S2S_MICROSERVICE:ia}
+    url: ${S2S_URL:http://127.0.0.1:4502}
+
+ccd:
+  case-data-api:
+    url: ${CCD_URL:http://127.0.0.1:4452}

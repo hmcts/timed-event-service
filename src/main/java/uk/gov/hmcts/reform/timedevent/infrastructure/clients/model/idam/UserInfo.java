@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.timedevent.infrastructure.clients.model;
+package uk.gov.hmcts.reform.timedevent.infrastructure.clients.model.idam;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class IdamUserInfo {
+public class UserInfo {
 
     @JsonProperty("sub")
     private String email;

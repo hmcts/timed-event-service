@@ -14,7 +14,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import uk.gov.hmcts.reform.timedevent.infrastructure.clients.IdamApi;
-import uk.gov.hmcts.reform.timedevent.infrastructure.clients.model.IdamToken;
+import uk.gov.hmcts.reform.timedevent.infrastructure.clients.model.idam.Token;
 
 @ExtendWith(MockitoExtension.class)
 @SuppressWarnings("unchecked")
@@ -24,7 +24,7 @@ class IdamSystemTokenGeneratorTest {
     private IdamApi idamApi;
 
     @Mock
-    private IdamToken idamToken;
+    private Token token;
 
     private String systemUserName = "systemUserName";
     private String systemUserPass = "systemUserPass";
@@ -38,8 +38,8 @@ class IdamSystemTokenGeneratorTest {
 
         String expectedToken = "systemUserTokenHash";
 
-        when(idamToken.getAccessToken()).thenReturn(expectedToken);
-        when(idamApi.token(any(Map.class))).thenReturn(idamToken);
+        when(token.getAccessToken()).thenReturn(expectedToken);
+        when(idamApi.token(any(Map.class))).thenReturn(token);
 
         IdamSystemTokenGenerator idamSystemTokenGenerator = new IdamSystemTokenGenerator(
             systemUserName,
