@@ -24,7 +24,10 @@ import uk.gov.hmcts.reform.timedevent.Application;
     Application.class
 })
 @TestPropertySource(properties = {
-    "CCD_URL=http://127.0.0.1:" + WIREMOCK_PORT + "/ccd"
+    "CCD_URL=http://127.0.0.1:" + WIREMOCK_PORT + "/ccd",
+    "IDAM_URL=http://127.0.0.1:" + WIREMOCK_PORT + "/idam",
+    "IA_IDAM_CLIENT_ID=ia",
+    "IA_IDAM_SECRET=something"
 })
 @ExtendWith({
     WiremockResolver.class

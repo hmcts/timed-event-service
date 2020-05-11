@@ -6,4 +6,7 @@ spring:
       aliases:
         idam-client-id: IA_IDAM_CLIENT_ID
         idam-secret: IA_IDAM_SECRET
+        idam-redirect-uri: IA_IDAM_REDIRECT_URI
+        system-username: IA_SYSTEM_USERNAME
+        system-password: IA_SYSTEM_PASSWORD
         AppInsightsInstrumentationKey: azure.application-insights.instrumentation-key
