@@ -21,8 +21,16 @@ def secrets = [
         secret('idam-secret', 'IA_IDAM_SECRET'),
         secret('idam-redirect-uri', 'IA_IDAM_REDIRECT_URI'),
         secret('s2s-secret', 'IA_S2S_SECRET'),
-        secret('s2s-microservice', 'IA_S2S_MICROSERVICE')
+        secret('s2s-microservice', 'IA_S2S_MICROSERVICE'),
+        secret('system-username', 'IA_SYSTEM_USERNAME'),
+        secret('system-password', 'IA_SYSTEM_PASSWORD'),
 
+        secret('test-caseofficer-username', 'TEST_CASEOFFICER_USERNAME'),
+        secret('test-caseofficer-password', 'TEST_CASEOFFICER_PASSWORD'),
+        secret('test-law-firm-a-username', 'TEST_LAW_FIRM_A_USERNAME'),
+        secret('test-law-firm-a-password', 'TEST_LAW_FIRM_A_PASSWORD'),
+        secret('test-homeoffice-lart-username', 'TEST_HOMEOFFICE_LART_USERNAME'),
+        secret('test-homeoffice-lart-password', 'TEST_HOMEOFFICE_LART_PASSWORD')
     ]
 ]
 
@@ -41,6 +49,8 @@ withNightlyPipeline(type, product, component) {
     env.CCD_URL = "http://ccd-data-store-api-aat.service.core-compute-aat.internal"
     env.IDAM_URL = "https://idam-web-public.aat.platform.hmcts.net"
     env.S2S_URL = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal"
+    env.CCD_GW_URL = "http://dm-store-aat.service.core-compute-aat.internal"
+    env.DM_URL = "http://dm-store-aat.service.core-compute-aat.internal"
 
     loadVaultSecrets(secrets)
 

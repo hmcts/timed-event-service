@@ -4,12 +4,10 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 
 import com.google.common.collect.ImmutableMap;
 import java.util.*;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -18,9 +16,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
-import uk.gov.hmcts.reform.auth.checker.core.RequestAuthorizer;
-import uk.gov.hmcts.reform.auth.checker.core.service.Service;
-import uk.gov.hmcts.reform.auth.checker.spring.serviceonly.AuthCheckerServiceOnlyFilter;
+import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
+import uk.gov.hmcts.reform.authorisation.filters.ServiceAuthFilter;
 import uk.gov.hmcts.reform.timedevent.domain.entities.ccd.Event;
 import uk.gov.hmcts.reform.timedevent.infrastructure.security.AuthorizedRolesProvider;
 import uk.gov.hmcts.reform.timedevent.infrastructure.security.CcdEventAuthorizor;
@@ -35,16 +32,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final List<String> anonymousPaths = new ArrayList<>();
     private final Map<String, List<Event>> roleEventAccess = new HashMap<>();
 
-    private final AuthenticationManager authenticationManager;
     private final Converter<Jwt, Collection<GrantedAuthority>> idamAuthoritiesConverter;
-    private final RequestAuthorizer<Service> serviceRequestAuthorizer;
+    private final ServiceAuthFilter serviceAuthFiler;
 
-    public SecurityConfiguration(AuthenticationManager authenticationManager,
-                                 Converter<Jwt, Collection<GrantedAuthority>> idamAuthoritiesConverter,
-                                 RequestAuthorizer<Service> serviceRequestAuthorizer) {
-        this.authenticationManager = authenticationManager;
+    public SecurityConfiguration(Converter<Jwt, Collection<GrantedAuthority>> idamAuthoritiesConverter,
+                                 ServiceAuthFilter serviceAuthFiler) {
         this.idamAuthoritiesConverter = idamAuthoritiesConverter;
-        this.serviceRequestAuthorizer = serviceRequestAuthorizer;
+        this.serviceAuthFiler = serviceAuthFiler;
     }
 
     @Override
@@ -63,16 +57,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(idamAuthoritiesConverter);
 
-        AuthCheckerServiceOnlyFilter authCheckerServiceOnlyFilter = new AuthCheckerServiceOnlyFilter(serviceRequestAuthorizer);
-        authCheckerServiceOnlyFilter.setAuthenticationManager(authenticationManager);
 
         http
-            .addFilter(authCheckerServiceOnlyFilter)
+            .addFilterBefore(serviceAuthFiler, AbstractPreAuthenticatedProcessingFilter.class)
             .sessionManagement().sessionCreationPolicy(STATELESS)
             .and()
             .exceptionHandling()
-            .accessDeniedHandler((request, response, exc) -> response.sendError(HttpServletResponse.SC_FORBIDDEN))
-            .authenticationEntryPoint((request, response, exc) -> response.sendError(HttpServletResponse.SC_FORBIDDEN))
             .and()
             .csrf().disable()
             .formLogin().disable()

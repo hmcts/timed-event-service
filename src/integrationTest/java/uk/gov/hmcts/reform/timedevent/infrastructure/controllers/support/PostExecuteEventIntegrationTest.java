@@ -20,7 +20,7 @@ import uk.gov.hmcts.reform.timedevent.testutils.WithServiceAuthStub;
 
 public class PostExecuteEventIntegrationTest extends SpringBootIntegrationTest implements WithIdamStub, WithServiceAuthStub {
 
-    private String event = "someEvent";
+    private String event = "example";
     private String caseId = "1234";
     private String jurisdiction = "someJurisdiction";
     private String caseType = "someCaseType";
@@ -85,9 +85,9 @@ public class PostExecuteEventIntegrationTest extends SpringBootIntegrationTest i
     }
 
     @Test
-    public void tokenSupportEndpoint() throws Exception {
+    public void executionEndpoint() throws Exception {
 
-        String url = "/testing-support/jurisdiction/" + jurisdiction + "/case-type/" + caseType + "/cid/" + caseId + "/event/" + event;
+        String url = "/testing-support/execute/jurisdiction/" + jurisdiction + "/case-type/" + caseType + "/cid/" + caseId + "/event/" + event;
 
         MvcResult response = mockMvc
             .perform(post(url))

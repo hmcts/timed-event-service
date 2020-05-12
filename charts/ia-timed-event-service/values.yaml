@@ -16,4 +16,6 @@ java:
         - idam-redirect-uri
         - system-username
         - system-password
+        - s2s-secret
+        - s2s-microservice
         - AppInsightsInstrumentationKey
