@@ -1,4 +1,6 @@
-package uk.gov.hmcts.reform.timedevent.domain.entities.ccd;
+package uk.gov.hmcts.reform.timedevent.domain.entities;
+
+import uk.gov.hmcts.reform.timedevent.domain.entities.ccd.Event;
 
 public class TimedEvent {
 

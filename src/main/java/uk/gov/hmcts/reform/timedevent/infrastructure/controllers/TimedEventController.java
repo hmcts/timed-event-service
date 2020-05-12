@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import uk.gov.hmcts.reform.timedevent.domain.entities.ccd.TimedEvent;
+import uk.gov.hmcts.reform.timedevent.domain.entities.TimedEvent;
 import uk.gov.hmcts.reform.timedevent.infrastructure.security.CcdEventAuthorizor;
 
 @RestController

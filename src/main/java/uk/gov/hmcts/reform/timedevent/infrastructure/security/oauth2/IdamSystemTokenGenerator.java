@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import uk.gov.hmcts.reform.timedevent.infrastructure.clients.IdamApi;
-import uk.gov.hmcts.reform.timedevent.infrastructure.clients.model.IdamToken;
+import uk.gov.hmcts.reform.timedevent.infrastructure.clients.model.idam.Token;
 import uk.gov.hmcts.reform.timedevent.infrastructure.security.SystemTokenGenerator;
 
 @Component
@@ -52,7 +52,7 @@ public class IdamSystemTokenGenerator implements SystemTokenGenerator {
 
         try {
 
-            IdamToken tokenResponse = idamApi.token(map);
+            Token tokenResponse = idamApi.token(map);
 
             return tokenResponse.getAccessToken();
 

@@ -11,7 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Component;
 import uk.gov.hmcts.reform.timedevent.infrastructure.clients.IdamApi;
-import uk.gov.hmcts.reform.timedevent.infrastructure.clients.model.IdamUserInfo;
+import uk.gov.hmcts.reform.timedevent.infrastructure.clients.model.idam.UserInfo;
 
 @Component
 public class IdamAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
@@ -40,7 +40,7 @@ public class IdamAuthoritiesConverter implements Converter<Jwt, Collection<Grant
 
         try {
 
-            IdamUserInfo userInfo = idamApi.userInfo("Bearer " + authorization);
+            UserInfo userInfo = idamApi.userInfo("Bearer " + authorization);
 
             return userInfo
                 .getRoles()

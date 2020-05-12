@@ -13,21 +13,23 @@ import uk.gov.hmcts.reform.timedevent.testutils.SpringBootIntegrationTest;
 import uk.gov.hmcts.reform.timedevent.testutils.StaticPortWiremockFactory;
 import uk.gov.hmcts.reform.timedevent.testutils.WithIdamStub;
 
-public class GetTokenIntegrationTest extends SpringBootIntegrationTest implements WithIdamStub {
+public class GetSystemUserIntegrationTest extends SpringBootIntegrationTest implements WithIdamStub {
+
 
     @BeforeEach
     public void stubRequests(@WiremockResolver.Wiremock(factory = StaticPortWiremockFactory.class) WireMockServer server) {
 
         addIdamTokenStub(server);
+        addUserInfoStub(server);
     }
 
     @Test
     public void tokenSupportEndpoint() throws Exception {
         MvcResult response = mockMvc
-            .perform(get("/testing-support/token"))
+            .perform(get("/testing-support/system-user"))
             .andExpect(status().isOk())
             .andReturn();
 
-        assertEquals(SYSTEM_USER_TOKEN, response.getResponse().getContentAsString());
+        assertEquals(USER_ID, response.getResponse().getContentAsString());
     }
 }

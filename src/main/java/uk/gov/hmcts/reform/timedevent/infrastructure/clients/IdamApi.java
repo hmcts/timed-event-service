@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-import uk.gov.hmcts.reform.timedevent.infrastructure.clients.model.IdamToken;
-import uk.gov.hmcts.reform.timedevent.infrastructure.clients.model.IdamUserInfo;
+import uk.gov.hmcts.reform.timedevent.infrastructure.clients.model.idam.Token;
+import uk.gov.hmcts.reform.timedevent.infrastructure.clients.model.idam.UserInfo;
 import uk.gov.hmcts.reform.timedevent.infrastructure.config.FeignConfiguration;
 
 @FeignClient(
@@ -20,9 +20,9 @@ import uk.gov.hmcts.reform.timedevent.infrastructure.config.FeignConfiguration;
 public interface IdamApi {
 
     @GetMapping(value = "/o/userinfo", produces = "application/json", consumes = "application/json")
-    IdamUserInfo userInfo(@RequestHeader(AUTHORIZATION) String userToken);
+    UserInfo userInfo(@RequestHeader(AUTHORIZATION) String userToken);
 
     @PostMapping(value = "/o/token", produces = "application/json", consumes = "application/x-www-form-urlencoded")
-    IdamToken token(@RequestBody Map<String, ?> form);
+    Token token(@RequestBody Map<String, ?> form);
 
 }

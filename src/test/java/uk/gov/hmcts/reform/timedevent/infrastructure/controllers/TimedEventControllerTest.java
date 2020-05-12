@@ -10,8 +10,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import uk.gov.hmcts.reform.timedevent.domain.entities.TimedEvent;
 import uk.gov.hmcts.reform.timedevent.domain.entities.ccd.Event;
-import uk.gov.hmcts.reform.timedevent.domain.entities.ccd.TimedEvent;
 import uk.gov.hmcts.reform.timedevent.infrastructure.security.CcdEventAuthorizor;
 
 @ExtendWith(MockitoExtension.class)
