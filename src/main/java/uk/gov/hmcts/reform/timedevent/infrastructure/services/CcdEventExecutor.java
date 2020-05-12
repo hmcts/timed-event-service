@@ -4,6 +4,7 @@ import java.util.Collections;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import uk.gov.hmcts.reform.authorisation.generators.AuthTokenGenerator;
+import uk.gov.hmcts.reform.timedevent.domain.entities.EventExecution;
 import uk.gov.hmcts.reform.timedevent.domain.services.EventExecutor;
 import uk.gov.hmcts.reform.timedevent.infrastructure.clients.CcdApi;
 import uk.gov.hmcts.reform.timedevent.infrastructure.clients.model.ccd.CaseDataContent;
@@ -38,12 +39,19 @@ public class CcdEventExecutor implements EventExecutor {
     }
 
     @Override
-    public void execute(String jurisdiction, String caseType, String event, long id) {
+    public void execute(EventExecution execution) {
 
-        log.info("Execution event: {}, for case id: {} has been started.", event, id);
+        String event = execution.getEvent().toString();
+        String caseId = String.valueOf(execution.getCaseId());
+        String jurisdiction = execution.getJurisdiction();
+        String caseType = execution.getCaseType();
+
+        log.info("Execution event: {}, for case id: {} has been started.", event, caseId);
 
         String userToken = "Bearer " + systemTokenGenerator.generate();
-        String s2sToken = "Bearer " + s2sAuthTokenGenerator.generate();
+
+        // returned token is already with Bearer prefix
+        String s2sToken = s2sAuthTokenGenerator.generate();
 
         String uid = systemUserProvider.getSystemUserId(userToken);
 
@@ -53,11 +61,16 @@ public class CcdEventExecutor implements EventExecutor {
             uid,
             jurisdiction,
             caseType,
-            String.valueOf(id),
+            caseId,
             event
         );
 
-        log.info("Execution token generated for event: {}, for case id: {}. Token: {}", event, id, startEventResponse.getToken());
+        log.info(
+            "Execution token generated for event: {}, for case id: {}. Token: {}",
+            event,
+            execution.getCaseId(),
+            startEventResponse.getToken()
+        );
 
         CaseDetails caseDetails = ccdApi.submitEvent(
             userToken,
@@ -65,7 +78,7 @@ public class CcdEventExecutor implements EventExecutor {
             uid,
             jurisdiction,
             caseType,
-            String.valueOf(id),
+            caseId,
             new CaseDataContent(
                 new Event(event, event, event),
                 startEventResponse.getToken(),
@@ -74,6 +87,11 @@ public class CcdEventExecutor implements EventExecutor {
             )
         );
 
-        log.info("Event: {}, for case id: {} has been executed. Case state: {}", event, id, caseDetails.getState());
+        log.info(
+            "Event: {}, for case id: {} has been executed. Case state: {}",
+            event,
+            caseId,
+            caseDetails.getState()
+        );
     }
 }

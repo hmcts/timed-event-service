@@ -24,7 +24,7 @@ public class GetSystemUserIntegrationTest extends SpringBootIntegrationTest impl
     }
 
     @Test
-    public void tokenSupportEndpoint() throws Exception {
+    public void systemUserEndpoint() throws Exception {
         MvcResult response = mockMvc
             .perform(get("/testing-support/system-user"))
             .andExpect(status().isOk())

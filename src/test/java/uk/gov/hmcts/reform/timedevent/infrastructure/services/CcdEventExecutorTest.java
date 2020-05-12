@@ -12,6 +12,8 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import uk.gov.hmcts.reform.authorisation.generators.AuthTokenGenerator;
+import uk.gov.hmcts.reform.timedevent.domain.entities.EventExecution;
+import uk.gov.hmcts.reform.timedevent.domain.entities.ccd.Event;
 import uk.gov.hmcts.reform.timedevent.infrastructure.clients.CcdApi;
 import uk.gov.hmcts.reform.timedevent.infrastructure.clients.model.ccd.CaseDataContent;
 import uk.gov.hmcts.reform.timedevent.infrastructure.clients.model.ccd.CaseDetails;
@@ -44,12 +46,12 @@ class CcdEventExecutorTest {
     public void should_execute_event() {
 
         String token = "token";
-        String serviceToken = "serviceToken";
+        String serviceToken = "Bearer serviceToken";
         String userId = "userId";
 
         String jurisdiction = "jurisdiction";
         String caseType = "caseType";
-        String event = "example";
+        Event event = Event.EXAMPLE;
         long caseId = 1234;
 
         String ccdToken = "ccdToken";
@@ -64,18 +66,18 @@ class CcdEventExecutorTest {
         when(startEventTrigger.getToken()).thenReturn(ccdToken);
         when(ccdApi.startEvent(
             "Bearer " + token,
-            "Bearer " + serviceToken,
+            serviceToken,
             userId,
             jurisdiction,
             caseType,
             String.valueOf(caseId),
-            event
+            event.toString()
         )).thenReturn(startEventTrigger);
 
         when(caseDetails.getState()).thenReturn(state);
         when(ccdApi.submitEvent(
             eq("Bearer " + token),
-            eq("Bearer " + serviceToken),
+            eq(serviceToken),
             eq(userId),
             eq(jurisdiction),
             eq(caseType),
@@ -85,7 +87,13 @@ class CcdEventExecutorTest {
 
         CcdEventExecutor ccdEventExecutor = new CcdEventExecutor(systemTokenGenerator, systemUserProvider, s2sAuthTokenGenerator, ccdApi);
 
-        ccdEventExecutor.execute(jurisdiction, caseType, event, caseId);
+        EventExecution execution = new EventExecution(
+            event,
+            jurisdiction,
+            caseType,
+            caseId
+        );
+        ccdEventExecutor.execute(execution);
 
         verify(systemTokenGenerator).generate();
         verify(s2sAuthTokenGenerator).generate();
@@ -94,12 +102,12 @@ class CcdEventExecutorTest {
 
         verify(ccdApi).startEvent(
             "Bearer " + token,
-            "Bearer " + serviceToken,
+            serviceToken,
             userId,
             jurisdiction,
             caseType,
             String.valueOf(caseId),
-            event
+            event.toString()
         );
 
         verify(startEventTrigger, times(2)).getToken();
@@ -108,7 +116,7 @@ class CcdEventExecutorTest {
 
         verify(ccdApi).submitEvent(
             eq("Bearer " + token),
-            eq("Bearer " + serviceToken),
+            eq(serviceToken),
             eq(userId),
             eq(jurisdiction),
             eq(caseType),
@@ -116,9 +124,9 @@ class CcdEventExecutorTest {
             caseDataCaptor.capture()
         );
 
-        assertEquals(event, caseDataCaptor.getValue().getEvent().getId());
-        assertEquals(event, caseDataCaptor.getValue().getEvent().getDescription());
-        assertEquals(event, caseDataCaptor.getValue().getEvent().getSummary());
+        assertEquals(event.toString(), caseDataCaptor.getValue().getEvent().getId());
+        assertEquals(event.toString(), caseDataCaptor.getValue().getEvent().getDescription());
+        assertEquals(event.toString(), caseDataCaptor.getValue().getEvent().getSummary());
 
         assertEquals(ccdToken, caseDataCaptor.getValue().getEventToken());
         assertTrue(caseDataCaptor.getValue().isIgnoreWarning());

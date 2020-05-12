@@ -30,6 +30,13 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: ${IDAM_URL:http://127.0.0.1:5000}/o/jwks
+  quartz:
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceName: timed-event-quartz-scheduler
+            instanceId: AUTO
 
 health:
   services:
@@ -60,6 +67,7 @@ security:
     - "iac"
   roleEventAccess:
     caseworker-ia-caseofficer:
+    - "example"
     - "unknown"
 
 auth.provider.service.client.baseUrl: ${S2S_URL:http://127.0.0.1:4502}
