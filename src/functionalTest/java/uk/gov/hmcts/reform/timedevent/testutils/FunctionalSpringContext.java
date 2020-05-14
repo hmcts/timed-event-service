@@ -11,7 +11,8 @@ import uk.gov.hmcts.reform.timedevent.Application;
 @EnableCircuitBreaker
 @EnableFeignClients(basePackages = {
     "uk.gov.hmcts.reform.authorisation",
-    "uk.gov.hmcts.reform.timedevent.infrastructure.clients"
+    "uk.gov.hmcts.reform.timedevent.infrastructure.clients",
+    "uk.gov.hmcts.reform.timedevent.testutils.clients"
 })
 @SuppressWarnings("HideUtilityClassConstructor")
 public class FunctionalSpringContext {

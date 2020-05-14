@@ -1,0 +1,25 @@
+{
+  "homeOfficeReferenceNumber": "A123456",
+  "homeOfficeDecisionDate": "{$TODAY}",
+  "appellantTitle": "Mr",
+  "appellantGivenNames": "Talha",
+  "appellantFamilyName": "Awan",
+  "appellantDateOfBirth": "{$TODAY-7300}",
+  "appellantHasFixedAddress": "No",
+  "appealType": "protection",
+  "hasNewMatters": "No",
+  "hasOtherAppeals": "No",
+  "appealGroundsProtection": {
+    "values": [
+      "protectionRefugeeConvention"
+    ]
+  },
+  "appellantNationalities": [
+    {
+      "id": "1",
+      "value": {
+        "code": "IS"
+      }
+    }
+  ]
+}
