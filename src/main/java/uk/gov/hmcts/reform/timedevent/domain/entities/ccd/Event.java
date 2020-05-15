@@ -8,6 +8,7 @@ import java.util.Arrays;
 public enum Event {
 
     EXAMPLE("example"),
+    REQUEST_HEARING_REQUIREMENTS_FEATURE("requestHearingRequirementsFeature"),
 
     @JsonEnumDefaultValue
     UNKNOWN("unknown");

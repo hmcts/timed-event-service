@@ -15,6 +15,12 @@ public class MapValueExpander {
     private static final Pattern ENVIRONMENT_PROPERTY_PATTERN = Pattern.compile("\\{\\$([a-zA-Z0-9].+?)}");
     public static final Properties ENVIRONMENT_PROPERTIES = new Properties(System.getProperties());
 
+    private final DocumentManagementFilesFixture documentManagementFilesFixture;
+
+    public MapValueExpander(DocumentManagementFilesFixture documentManagementFilesFixture) {
+        this.documentManagementFilesFixture = documentManagementFilesFixture;
+    }
+
     public void expandValues(Map<String, Object> map) {
 
         for (Map.Entry<String, Object> entry : map.entrySet()) {
@@ -109,9 +115,16 @@ public class MapValueExpander {
                 String token = matcher.group(0);
                 String propertyName = matcher.group(1);
 
-                String property = ENVIRONMENT_PROPERTIES.getProperty(propertyName);
+                if (documentManagementFilesFixture.getProperties().containsKey(propertyName)) {
 
-                expandedValue = expandedValue.replace(token, property);
+                    expandedValue = documentManagementFilesFixture.getProperties().get(propertyName);
+
+                } else {
+
+                    String property = ENVIRONMENT_PROPERTIES.getProperty(propertyName);
+
+                    expandedValue = expandedValue.replace(token, property);
+                }
             }
         }
 

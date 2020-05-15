@@ -67,6 +67,7 @@ security:
     - "iac"
   roleEventAccess:
     caseworker-ia-caseofficer:
+    - "requestHearingRequirementsFeature"
     - "example"
     - "unknown"
 

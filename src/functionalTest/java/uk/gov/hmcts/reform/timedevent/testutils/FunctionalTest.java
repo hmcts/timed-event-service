@@ -3,20 +3,27 @@ package uk.gov.hmcts.reform.timedevent.testutils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
+import java.io.IOException;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.Resource;
+import org.springframework.test.context.ActiveProfiles;
 import uk.gov.hmcts.reform.authorisation.generators.AuthTokenGenerator;
+import uk.gov.hmcts.reform.document.DocumentUploadClientApi;
 import uk.gov.hmcts.reform.timedevent.infrastructure.clients.IdamApi;
 import uk.gov.hmcts.reform.timedevent.infrastructure.config.ServiceTokenGeneratorConfiguration;
 import uk.gov.hmcts.reform.timedevent.testutils.clients.*;
-import uk.gov.hmcts.reform.timedevent.testutils.data.CaseDataFixture;
-import uk.gov.hmcts.reform.timedevent.testutils.data.IdamAuthProvider;
+import uk.gov.hmcts.reform.timedevent.testutils.data.*;
 
-@SpringBootTest(classes = {ServiceTokenGeneratorConfiguration.class, FunctionalSpringContext.class})
+@SpringBootTest(classes = {
+    DocumentUploadClientApiConfiguration.class,
+    ServiceTokenGeneratorConfiguration.class,
+    FunctionalSpringContext.class
+})
+@ActiveProfiles("functional")
 public class FunctionalTest {
 
     @Value("${idam.redirectUrl}") protected String idamRedirectUrl;
@@ -36,6 +43,9 @@ public class FunctionalTest {
     @Autowired
     protected ExtendedCcdApi ccdApi;
 
+    @Autowired
+    protected DocumentUploadClientApi documentUploadClientApi;
+
     protected IdamAuthProvider idamAuthProvider;
 
     protected CaseDataFixture caseDataFixture;
@@ -50,7 +60,7 @@ public class FunctionalTest {
     protected RequestSpecification requestSpecification;
 
     @BeforeEach
-    public void setup() {
+    public void setup() throws IOException {
         requestSpecification = new RequestSpecBuilder()
             .setBaseUri(targetInstance)
             .setRelaxedHTTPSValidation()
@@ -64,12 +74,24 @@ public class FunctionalTest {
             idamClientSecret
         );
 
+        DocumentManagementUploader documentManagementUploader = new DocumentManagementUploader(
+            documentUploadClientApi,
+            idamAuthProvider,
+            s2sAuthTokenGenerator
+        );
+
+        DocumentManagementFilesFixture documentManagementFilesFixture = new DocumentManagementFilesFixture(documentManagementUploader);
+        documentManagementFilesFixture.prepare();
+
+        MapValueExpander mapValueExpander = new MapValueExpander(documentManagementFilesFixture);
+
         caseDataFixture = new CaseDataFixture(
             ccdApi,
             objectMapper,
             s2sAuthTokenGenerator,
             minimalAppealStarted,
-            idamAuthProvider
+            idamAuthProvider,
+            mapValueExpander
         );
     }
 
