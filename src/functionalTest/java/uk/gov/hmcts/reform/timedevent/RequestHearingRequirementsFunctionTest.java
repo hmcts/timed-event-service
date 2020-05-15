@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import uk.gov.hmcts.reform.timedevent.infrastructure.clients.model.ccd.CaseDetails;
 import uk.gov.hmcts.reform.timedevent.testutils.FunctionalTest;
 
+import java.time.ZonedDateTime;
+
 public class RequestHearingRequirementsFunctionTest extends FunctionalTest {
 
     private String event = "requestHearingRequirementsFeature";
@@ -36,6 +38,9 @@ public class RequestHearingRequirementsFunctionTest extends FunctionalTest {
         String jurisdiction = "IA";
         String caseType = "Asylum";
 
+        // TODO assert TimedEvent creation by ia-case-api
+
+        // run Timed Event with DateTime now
         Response response = given(requestSpecification)
             .when()
             .header(new Header("Authorization", idamAuthProvider.getCaseOfficerToken()))
@@ -45,7 +50,7 @@ public class RequestHearingRequirementsFunctionTest extends FunctionalTest {
                   + " \"caseType\": \"" + caseType + "\","
                   + " \"caseId\": " + caseId + ","
                   + " \"event\": \"" + event + "\","
-                  + " \"scheduledDateTime\": \"2020-05-13T10:00:00Z\" }"
+                  + " \"scheduledDateTime\": \"" + ZonedDateTime.now().toString() + "\" }"
             )
             .post("/timed-event")
             .then()
