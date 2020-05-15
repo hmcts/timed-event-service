@@ -1,12 +1,15 @@
 package uk.gov.hmcts.reform.timedevent;
 
 import static io.restassured.RestAssured.given;
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 
 import io.restassured.http.Header;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import uk.gov.hmcts.reform.timedevent.infrastructure.clients.model.ccd.CaseDetails;
 import uk.gov.hmcts.reform.timedevent.testutils.FunctionalTest;
 
 public class RequestHearingRequirementsFunctionTest extends FunctionalTest {
@@ -30,13 +33,16 @@ public class RequestHearingRequirementsFunctionTest extends FunctionalTest {
     @Test
     public void should_trigger_requestHearingRequirementsFeature_event() {
 
+        String jurisdiction = "IA";
+        String caseType = "Asylum";
+
         Response response = given(requestSpecification)
             .when()
             .header(new Header("Authorization", idamAuthProvider.getCaseOfficerToken()))
             .header(new Header("ServiceAuthorization", s2sAuthTokenGenerator.generate()))
             .contentType("application/json")
-            .body("{ \"jurisdiction\": \"IA\","
-                  + " \"caseType\": \"Asylum\","
+            .body("{ \"jurisdiction\": \"" + jurisdiction + "\","
+                  + " \"caseType\": \"" + caseType + "\","
                   + " \"caseId\": " + caseId + ","
                   + " \"event\": \"" + event + "\","
                   + " \"scheduledDateTime\": \"2020-05-13T10:00:00Z\" }"
@@ -47,7 +53,20 @@ public class RequestHearingRequirementsFunctionTest extends FunctionalTest {
 
         assertThat(response.getStatusCode()).isEqualTo(200);
 
-        // TODO add assert for case data in submitHearingRequirements state
+        String token = idamAuthProvider.getCaseOfficerToken();
+
+        await().pollInterval(2, SECONDS).atMost(10, SECONDS).until(() -> {
+            CaseDetails caseDetails = ccdApi.get(
+                token,
+                s2sAuthTokenGenerator.generate(),
+                idamAuthProvider.getUserId(token),
+                jurisdiction,
+                caseType,
+                String.valueOf(caseId)
+            );
+
+            return caseDetails.getState().equals("submitHearingRequirements");
+        });
     }
 
     // TODO no-authenticated

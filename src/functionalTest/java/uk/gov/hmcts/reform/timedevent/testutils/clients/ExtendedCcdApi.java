@@ -38,4 +38,14 @@ public interface ExtendedCcdApi extends CcdApi {
         @PathVariable("ctid") String caseType,
         @RequestBody CaseDataContent content
     );
+
+    @GetMapping(value = "/caseworkers/{uid}/jurisdictions/{jid}/case-types/{ctid}/cases/{cid}", produces = "application/json", consumes = "application/json")
+    CaseDetails get(
+        @RequestHeader(AUTHORIZATION) String userToken,
+        @RequestHeader(SERVICE_AUTHORIZATION) String s2sToken,
+        @PathVariable("uid") String userId,
+        @PathVariable("jid") String jurisdiction,
+        @PathVariable("ctid") String caseType,
+        @PathVariable("cid") String id
+    );
 }
