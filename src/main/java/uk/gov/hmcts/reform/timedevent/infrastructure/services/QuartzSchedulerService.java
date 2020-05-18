@@ -57,9 +57,10 @@ public class QuartzSchedulerService implements SchedulerService {
             quartzScheduler.scheduleJob(job, trigger);
 
             log.info(
-                "Timed Event scheduled for event: {}, case id: {}",
+                "Timed Event scheduled for event: {}, case id: {} at: {}",
                 timedEvent.getEvent().toString(),
-                timedEvent.getCaseId()
+                timedEvent.getCaseId(),
+                timedEvent.getScheduledDateTime().toString()
             );
 
             return trigger.getKey().getName();
