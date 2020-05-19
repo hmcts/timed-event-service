@@ -87,7 +87,7 @@ public class PostExecuteEventIntegrationTest extends SpringBootIntegrationTest i
     @Test
     public void executionEndpoint() throws Exception {
 
-        String url = "/testing-support/jurisdiction/" + jurisdiction + "/case-type/" + caseType + "/cid/" + caseId + "/event/" + event;
+        String url = "/testing-support/execute/jurisdiction/" + jurisdiction + "/case-type/" + caseType + "/cid/" + caseId + "/event/" + event;
 
         MvcResult response = mockMvc
             .perform(post(url))

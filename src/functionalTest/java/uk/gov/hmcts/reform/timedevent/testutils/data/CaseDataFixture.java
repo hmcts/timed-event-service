@@ -227,6 +227,51 @@ public class CaseDataFixture {
         );
     }
 
+    public String uploadHomeOfficeAppealResponse(long caseId) {
+
+        Map<String, Object> homeOfficeAppealResponseDocument = new HashMap<>();
+        homeOfficeAppealResponseDocument.put("document_url", "{$FIXTURE_DOC2_PDF_URL}");
+        homeOfficeAppealResponseDocument.put("document_binary_url", "{$FIXTURE_DOC2_PDF_URL_BINARY}");
+        homeOfficeAppealResponseDocument.put("document_filename", "{$FIXTURE_DOC2_PDF_FILENAME}");
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("homeOfficeAppealResponseDocument", homeOfficeAppealResponseDocument);
+
+        String userToken = idamAuthProvider.getHomeOfficeLartToken();
+
+        return triggerEvent(
+            userToken,
+            s2sAuthTokenGenerator.generate(),
+            idamAuthProvider.getUserId(userToken),
+            caseId,
+            "uploadHomeOfficeAppealResponse",
+            data
+        );
+    }
+
+    // not used for now - clarify why we need it
+    public String addAppealResponse(long caseId) {
+
+        Map<String, Object> appealResponseDocument = new HashMap<>();
+        appealResponseDocument.put("document_url", "{$FIXTURE_DOC2_PDF_URL}");
+        appealResponseDocument.put("document_binary_url", "{$FIXTURE_DOC2_PDF_URL_BINARY}");
+        appealResponseDocument.put("document_filename", "{$FIXTURE_DOC2_PDF_FILENAME}");
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("appealResponseDocument", appealResponseDocument);
+
+        String userToken = idamAuthProvider.getCaseOfficerToken();
+
+        return triggerEvent(
+            userToken,
+            s2sAuthTokenGenerator.generate(),
+            idamAuthProvider.getUserId(userToken),
+            caseId,
+            "addAppealResponse",
+            data
+        );
+    }
+
     public String requestResponseReview(long caseId) {
 
         Map<String, Object> data = new HashMap<>();

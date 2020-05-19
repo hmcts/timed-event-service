@@ -46,6 +46,14 @@ public class IdamAuthProvider {
         );
     }
 
+    public String getHomeOfficeLartToken() {
+
+        return getUserToken(
+            System.getenv("TEST_HOMEOFFICE_LART_USERNAME"),
+            System.getenv("TEST_HOMEOFFICE_LART_PASSWORD")
+        );
+    }
+
     public String getUserId(String token) {
 
         try {

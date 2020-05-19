@@ -48,7 +48,7 @@ public class TestingSupportController {
         return ok(systemUserProvider.getSystemUserId("Bearer " + systemTokenGenerator.generate()));
     }
 
-    @PostMapping("/testing-support/jurisdiction/{jurisdiction}/case-type/{caseType}/cid/{cid}/event/{event}")
+    @PostMapping("/testing-support/execute/jurisdiction/{jurisdiction}/case-type/{caseType}/cid/{cid}/event/{event}")
     public ResponseEntity<String> execute(
         @PathVariable("jurisdiction") String jurisdiction,
         @PathVariable("caseType") String caseType,
