@@ -48,8 +48,6 @@ public class FunctionalTest {
 
     protected IdamAuthProvider idamAuthProvider;
 
-    protected CaseDataFixture caseDataFixture;
-
     protected ObjectMapper objectMapper = new ObjectMapper();
     protected final String targetInstance =
         StringUtils.defaultIfBlank(
@@ -58,6 +56,8 @@ public class FunctionalTest {
         );
 
     protected RequestSpecification requestSpecification;
+
+    protected MapValueExpander mapValueExpander;
 
     @BeforeEach
     public void setup() throws IOException {
@@ -83,16 +83,8 @@ public class FunctionalTest {
         DocumentManagementFilesFixture documentManagementFilesFixture = new DocumentManagementFilesFixture(documentManagementUploader);
         documentManagementFilesFixture.prepare();
 
-        MapValueExpander mapValueExpander = new MapValueExpander(documentManagementFilesFixture);
+        mapValueExpander = new MapValueExpander(documentManagementFilesFixture);
 
-        caseDataFixture = new CaseDataFixture(
-            ccdApi,
-            objectMapper,
-            s2sAuthTokenGenerator,
-            minimalAppealStarted,
-            idamAuthProvider,
-            mapValueExpander
-        );
     }
 
 }

@@ -7,44 +7,85 @@ import static org.awaitility.Awaitility.await;
 
 import io.restassured.http.Header;
 import io.restassured.response.Response;
+import java.time.ZonedDateTime;
+import java.util.regex.Pattern;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uk.gov.hmcts.reform.timedevent.infrastructure.clients.model.ccd.CaseDetails;
 import uk.gov.hmcts.reform.timedevent.testutils.FunctionalTest;
-
-import java.time.ZonedDateTime;
+import uk.gov.hmcts.reform.timedevent.testutils.data.CaseDataFixture;
 
 public class RequestHearingRequirementsFunctionTest extends FunctionalTest {
 
+    private String jurisdiction = "IA";
+    private String caseType = "Asylum";
     private String event = "requestHearingRequirementsFeature";
-    private long caseId;
+
+    private String caseDataField = "automaticDirectionRequestingHearingRequirements";
+    private Pattern uuidPattern = Pattern.compile("[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}");
+
+    private String systemUserToken;
+    private String systemUserId;
+
+    private CaseDataFixture caseDataFixture;
 
     @BeforeEach
     public void createCase() {
 
-        caseId = caseDataFixture.startAppeal();
-        caseDataFixture.submitAppeal(caseId);
-        caseDataFixture.requestRespondentEvidence(caseId);
-        caseDataFixture.uploadRespondentEvidence(caseId);
-        caseDataFixture.buildCase(caseId);
-        caseDataFixture.submitCase(caseId);
-        caseDataFixture.requestRespondentReview(caseId);
-        caseDataFixture.requestResponseReview(caseId);
+        systemUserToken = idamAuthProvider.getSystemUserToken();
+        systemUserId = idamApi.userInfo(systemUserToken).getUid();
+
+        caseDataFixture = new CaseDataFixture(
+            ccdApi,
+            objectMapper,
+            s2sAuthTokenGenerator,
+            minimalAppealStarted,
+            idamAuthProvider,
+            mapValueExpander
+        );
+
+        caseDataFixture.startAppeal();
+        caseDataFixture.submitAppeal();
+        caseDataFixture.requestRespondentEvidence();
+        caseDataFixture.uploadRespondentEvidence();
+        caseDataFixture.buildCase();
+        caseDataFixture.submitCase();
+        caseDataFixture.requestRespondentReview();
+        caseDataFixture.uploadHomeOfficeAppealResponse();
+        caseDataFixture.requestResponseReview();
     }
 
     @Test
     public void should_trigger_requestHearingRequirementsFeature_event() {
 
-        String jurisdiction = "IA";
-        String caseType = "Asylum";
+        long caseId = caseDataFixture.getCaseId();
 
-        // TODO assert TimedEvent creation by ia-case-api
+        // confirm than Timed Event has been created by ia-case-api
+        CaseDetails caseDetails = ccdApi.get(
+            systemUserToken,
+            caseDataFixture.getS2sToken(),
+            systemUserId,
+            jurisdiction,
+            caseType,
+            String.valueOf(caseId)
+        );
+        assertThat((String) caseDetails.getCaseData().get(caseDataField)).matches(uuidPattern);
 
-        // run Timed Event with DateTime now
-        Response response = given(requestSpecification)
+        // execute Timed Event now
+        Response response = scheduleEventNow(caseId);
+        assertThat(response.getStatusCode()).isEqualTo(200);
+
+        // assert that Timed Event execution changed case state
+        assertThatCaseIsInState(caseId, "submitHearingRequirements");
+    }
+
+    private Response scheduleEventNow(long caseId) {
+
+
+        return given(requestSpecification)
             .when()
-            .header(new Header("Authorization", idamAuthProvider.getCaseOfficerToken()))
-            .header(new Header("ServiceAuthorization", s2sAuthTokenGenerator.generate()))
+            .header(new Header("Authorization", caseDataFixture.getCaseOfficerToken()))
+            .header(new Header("ServiceAuthorization", caseDataFixture.getS2sToken()))
             .contentType("application/json")
             .body("{ \"jurisdiction\": \"" + jurisdiction + "\","
                   + " \"caseType\": \"" + caseType + "\","
@@ -55,23 +96,19 @@ public class RequestHearingRequirementsFunctionTest extends FunctionalTest {
             .post("/timed-event")
             .then()
             .extract().response();
+    }
 
-        assertThat(response.getStatusCode()).isEqualTo(200);
-
-        String token = idamAuthProvider.getCaseOfficerToken();
-
-        await().pollInterval(2, SECONDS).atMost(10, SECONDS).until(() -> {
-            CaseDetails caseDetails = ccdApi.get(
-                token,
-                s2sAuthTokenGenerator.generate(),
-                idamAuthProvider.getUserId(token),
+    private void assertThatCaseIsInState(long caseId, String state) {
+        await().pollInterval(2, SECONDS).atMost(10, SECONDS).until(() ->
+            ccdApi.get(
+                systemUserToken,
+                caseDataFixture.getS2sToken(),
+                systemUserId,
                 jurisdiction,
                 caseType,
                 String.valueOf(caseId)
-            );
-
-            return caseDetails.getState().equals("submitHearingRequirements");
-        });
+            ).getState().equals(state)
+        );
     }
 
     // TODO no-authenticated

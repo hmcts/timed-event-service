@@ -33,6 +33,19 @@ public class CaseDataFixture {
     private final IdamAuthProvider idamAuthProvider;
     private final MapValueExpander mapValueExpander;
 
+    private String s2sToken;
+
+    private String legalRepToken;
+    private String legalRepUserId;
+
+    private String caseOfficerToken;
+    private String caseOfficerUserId;
+
+    private String homeOfficeLartToken;
+    private String homeOfficeLartUserId;
+
+    private long caseId;
+
     public CaseDataFixture(
         ExtendedCcdApi ccdApi,
         ObjectMapper objectMapper,
@@ -49,16 +62,43 @@ public class CaseDataFixture {
         this.mapValueExpander = mapValueExpander;
     }
 
-    public long startAppeal() {
+    public String getS2sToken() {
+        return s2sToken;
+    }
+
+    public String getLegalRepToken() {
+        return legalRepToken;
+    }
+
+    public String getLegalRepUserId() {
+        return legalRepUserId;
+    }
+
+    public String getCaseOfficerToken() {
+        return caseOfficerToken;
+    }
+
+    public String getCaseOfficerUserId() {
+        return caseOfficerUserId;
+    }
+
+    public String getHomeOfficeLartToken() {
+        return homeOfficeLartToken;
+    }
+
+    public String getHomeOfficeLartUserId() {
+        return homeOfficeLartUserId;
+    }
+
+    public long getCaseId() {
+        return caseId;
+    }
+
+    public void startAppeal() {
+        authenticateUsers();
 
         String event = "startAppeal";
-
-        String userToken = idamAuthProvider.getLegalRepToken();
-
-        String s2sToken = s2sAuthTokenGenerator.generate();
-        String userId = idamAuthProvider.getUserId(userToken);
-
-        StartEventTrigger startEventResponse = ccdApi.startCaseCreation(userToken, s2sToken, userId, jurisdiction, caseType, event);
+        StartEventTrigger startEventResponse = ccdApi.startCaseCreation(legalRepToken, s2sToken, legalRepUserId, jurisdiction, caseType, event);
 
         Map<String, Object> data = Collections.emptyMap();
         try {
@@ -79,26 +119,24 @@ public class CaseDataFixture {
             data
         );
 
-        CaseDetails submit = ccdApi.submitCaseCreation(userToken, s2sToken, userId, jurisdiction, caseType, content);
+        CaseDetails submit = ccdApi.submitCaseCreation(legalRepToken, s2sToken, legalRepUserId, jurisdiction, caseType, content);
 
-        return submit.getId();
+        caseId = submit.getId();
     }
 
-    public String submitAppeal(long caseId) {
-
-        String userToken = idamAuthProvider.getLegalRepToken();
+    public String submitAppeal() {
 
         return triggerEvent(
-            userToken,
-            s2sAuthTokenGenerator.generate(),
-            idamAuthProvider.getUserId(userToken),
+            legalRepToken,
+            s2sToken,
+            legalRepUserId,
             caseId,
             "submitAppeal",
             Collections.emptyMap()
         );
     }
 
-    public String requestRespondentEvidence(long caseId) {
+    public String requestRespondentEvidence() {
 
         Map<String, Object> data = new HashMap<>();
         data.put("sendDirectionExplanation", "A notice of appeal has been lodged against this asylum decision.\n"
@@ -117,19 +155,17 @@ public class CaseDataFixture {
         data.put("sendDirectionDateDue", "{$TODAY+14}");
         data.put("sendDirectionParties", "respondent");
 
-        String userToken = idamAuthProvider.getCaseOfficerToken();
-
         return triggerEvent(
-            userToken,
-            s2sAuthTokenGenerator.generate(),
-            idamAuthProvider.getUserId(userToken),
+            caseOfficerToken,
+            s2sToken,
+            caseOfficerUserId,
             caseId,
             "requestRespondentEvidence",
             data
         );
     }
 
-    public String uploadRespondentEvidence(long caseId) {
+    public String uploadRespondentEvidence() {
 
         Map<String, Object> doc = new HashMap<>();
         doc.put("document_url", "{$FIXTURE_DOC1_PDF_URL}");
@@ -146,20 +182,17 @@ public class CaseDataFixture {
         Map<String, Object> data = new HashMap<>();
         data.put("respondentEvidence", newArrayList(respondentEvidence));
 
-
-        String userToken = idamAuthProvider.getCaseOfficerToken();
-
         return triggerEvent(
-            userToken,
-            s2sAuthTokenGenerator.generate(),
-            idamAuthProvider.getUserId(userToken),
+            caseOfficerToken,
+            s2sToken,
+            caseOfficerUserId,
             caseId,
             "uploadRespondentEvidence",
             data
         );
     }
 
-    public String buildCase(long caseId) {
+    public String buildCase() {
 
         Map<String, Object> caseArgumentDocument = new HashMap<>();
         caseArgumentDocument.put("document_url", "{$FIXTURE_DOC1_PDF_URL}");
@@ -169,33 +202,29 @@ public class CaseDataFixture {
         Map<String, Object> data = new HashMap<>();
         data.put("caseArgumentDocument", caseArgumentDocument);
 
-        String userToken = idamAuthProvider.getLegalRepToken();
-
         return triggerEvent(
-            userToken,
-            s2sAuthTokenGenerator.generate(),
-            idamAuthProvider.getUserId(userToken),
+            legalRepToken,
+            s2sToken,
+            legalRepUserId,
             caseId,
             "buildCase",
             data
         );
     }
 
-    public String submitCase(long caseId) {
-
-        String userToken = idamAuthProvider.getLegalRepToken();
+    public String submitCase() {
 
         return triggerEvent(
-            userToken,
-            s2sAuthTokenGenerator.generate(),
-            idamAuthProvider.getUserId(userToken),
+            legalRepToken,
+            s2sToken,
+            legalRepUserId,
             caseId,
             "submitCase",
             Collections.emptyMap()
         );
     }
 
-    public String requestRespondentReview(long caseId) {
+    public String requestRespondentReview() {
 
         Map<String, Object> data = new HashMap<>();
         data.put("sendDirectionExplanation", "You have 14 days to review the Appeal Skeleton Argument and evidence. You must explain whether the appellant makes a valid case for overturning the original decision.\n"
@@ -215,19 +244,17 @@ public class CaseDataFixture {
         data.put("sendDirectionDateDue", "{$TODAY+14}");
         data.put("sendDirectionParties", "respondent");
 
-        String userToken = idamAuthProvider.getCaseOfficerToken();
-
         return triggerEvent(
-            userToken,
-            s2sAuthTokenGenerator.generate(),
-            idamAuthProvider.getUserId(userToken),
+            caseOfficerToken,
+            s2sToken,
+            caseOfficerUserId,
             caseId,
             "requestRespondentReview",
             data
         );
     }
 
-    public String uploadHomeOfficeAppealResponse(long caseId) {
+    public String uploadHomeOfficeAppealResponse() {
 
         Map<String, Object> homeOfficeAppealResponseDocument = new HashMap<>();
         homeOfficeAppealResponseDocument.put("document_url", "{$FIXTURE_DOC2_PDF_URL}");
@@ -237,12 +264,10 @@ public class CaseDataFixture {
         Map<String, Object> data = new HashMap<>();
         data.put("homeOfficeAppealResponseDocument", homeOfficeAppealResponseDocument);
 
-        String userToken = idamAuthProvider.getHomeOfficeLartToken();
-
         return triggerEvent(
-            userToken,
-            s2sAuthTokenGenerator.generate(),
-            idamAuthProvider.getUserId(userToken),
+            homeOfficeLartToken,
+            s2sToken,
+            homeOfficeLartUserId,
             caseId,
             "uploadHomeOfficeAppealResponse",
             data
@@ -250,7 +275,7 @@ public class CaseDataFixture {
     }
 
     // not used for now - clarify why we need it
-    public String addAppealResponse(long caseId) {
+    public String addAppealResponse() {
 
         Map<String, Object> appealResponseDocument = new HashMap<>();
         appealResponseDocument.put("document_url", "{$FIXTURE_DOC2_PDF_URL}");
@@ -260,19 +285,17 @@ public class CaseDataFixture {
         Map<String, Object> data = new HashMap<>();
         data.put("appealResponseDocument", appealResponseDocument);
 
-        String userToken = idamAuthProvider.getCaseOfficerToken();
-
         return triggerEvent(
-            userToken,
-            s2sAuthTokenGenerator.generate(),
-            idamAuthProvider.getUserId(userToken),
+            caseOfficerToken,
+            s2sToken,
+            caseOfficerUserId,
             caseId,
             "addAppealResponse",
             data
         );
     }
 
-    public String requestResponseReview(long caseId) {
+    public String requestResponseReview() {
 
         Map<String, Object> data = new HashMap<>();
         data.put("sendDirectionExplanation", "The Home Office has replied to your Appeal Skeleton Argument and evidence. You should review their response.\n"
@@ -285,16 +308,27 @@ public class CaseDataFixture {
         data.put("sendDirectionDateDue", "{$TODAY+5}");
         data.put("sendDirectionParties", "legalRepresentative");
 
-        String userToken = idamAuthProvider.getCaseOfficerToken();
-
         return triggerEvent(
-            userToken,
-            s2sAuthTokenGenerator.generate(),
-            idamAuthProvider.getUserId(userToken),
+            caseOfficerToken,
+            s2sToken,
+            caseOfficerUserId,
             caseId,
             "requestResponseReview",
             data
         );
+    }
+
+    protected void authenticateUsers() {
+        s2sToken = s2sAuthTokenGenerator.generate();
+
+        legalRepToken = idamAuthProvider.getLegalRepToken();
+        legalRepUserId = idamAuthProvider.getUserId(legalRepToken);
+
+        caseOfficerToken = idamAuthProvider.getCaseOfficerToken();
+        caseOfficerUserId = idamAuthProvider.getUserId(caseOfficerToken);
+
+        homeOfficeLartToken = idamAuthProvider.getHomeOfficeLartToken();
+        homeOfficeLartUserId = idamAuthProvider.getUserId(homeOfficeLartToken);
     }
 
     private String triggerEvent(String userToken, String s2sToken, String userId, long caseId, String event, Map<String, Object> data) {

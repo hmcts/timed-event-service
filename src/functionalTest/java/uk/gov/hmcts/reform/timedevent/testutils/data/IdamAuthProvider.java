@@ -30,6 +30,14 @@ public class IdamAuthProvider {
         this.idamClientSecret = idamClientSecret;
     }
 
+    public String getSystemUserToken() {
+
+        return getUserToken(
+            System.getenv("IA_SYSTEM_USERNAME"),
+            System.getenv("IA_SYSTEM_PASSWORD")
+        );
+    }
+
     public String getLegalRepToken() {
 
         return getUserToken(
