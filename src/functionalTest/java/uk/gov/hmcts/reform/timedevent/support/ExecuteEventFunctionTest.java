@@ -17,7 +17,7 @@ public class ExecuteEventFunctionTest extends FunctionalTest {
         String event = "notExistingEvent";
         String caseId = "123456789";
 
-        String url = String.format("/execute/testing-support/jurisdiction/%s/case-type/%s/cid/%s/event/%s", jurisdiction, caseType, caseId, event);
+        String url = String.format("/testing-support/execute/jurisdiction/%s/case-type/%s/cid/%s/event/%s", jurisdiction, caseType, caseId, event);
 
         Response response = given(requestSpecification)
             .when()
@@ -38,7 +38,7 @@ public class ExecuteEventFunctionTest extends FunctionalTest {
         String event = "example";
         String caseId = "123456789";
 
-        String url = String.format("/execute/testing-support/jurisdiction/%s/case-type/%s/cid/%s/event/%s", jurisdiction, caseType, caseId, event);
+        String url = String.format("/testing-support/execute/jurisdiction/%s/case-type/%s/cid/%s/event/%s", jurisdiction, caseType, caseId, event);
 
         Response response = given(requestSpecification)
             .when()
