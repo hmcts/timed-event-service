@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 public enum Event {
 
+    REQUEST_RESPONDENT_EVIDENCE("requestRespondentEvidence"),
     EXAMPLE("example"),
     REQUEST_HEARING_REQUIREMENTS_FEATURE("requestHearingRequirementsFeature"),
 

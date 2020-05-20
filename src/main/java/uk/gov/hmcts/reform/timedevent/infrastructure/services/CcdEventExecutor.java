@@ -13,6 +13,7 @@ import uk.gov.hmcts.reform.timedevent.infrastructure.clients.model.ccd.Event;
 import uk.gov.hmcts.reform.timedevent.infrastructure.clients.model.ccd.StartEventTrigger;
 import uk.gov.hmcts.reform.timedevent.infrastructure.security.SystemTokenGenerator;
 import uk.gov.hmcts.reform.timedevent.infrastructure.security.SystemUserProvider;
+import uk.gov.hmcts.reform.timedevent.infrastructure.security.oauth2.IdentityManagerResponseException;
 
 @Slf4j
 @Service
@@ -48,12 +49,23 @@ public class CcdEventExecutor implements EventExecutor {
 
         log.info("Execution event: {}, for case id: {} has been started.", event, caseId);
 
-        String userToken = "Bearer " + systemTokenGenerator.generate();
+        String userToken;
+        String s2sToken;
+        String uid;
+        try {
+            userToken = "Bearer " + systemTokenGenerator.generate();
+            log.info("System user token has been generated for event: {}, caseId: {}.", event, caseId);
 
-        // returned token is already with Bearer prefix
-        String s2sToken = s2sAuthTokenGenerator.generate();
+            // returned token is already with Bearer prefix
+            s2sToken = s2sAuthTokenGenerator.generate();
+            log.info("S2S token has been generated for event: {}, caseId: {}.", event, caseId);
 
-        String uid = systemUserProvider.getSystemUserId(userToken);
+            uid = systemUserProvider.getSystemUserId(userToken);
+            log.info("System user id has been fetched for event: {}, caseId: {}.", event, caseId);
+
+        } catch (Exception e) {
+            throw new IdentityManagerResponseException(e.getMessage(), e);
+        }
 
         StartEventTrigger startEventResponse = ccdApi.startEvent(
             userToken,
