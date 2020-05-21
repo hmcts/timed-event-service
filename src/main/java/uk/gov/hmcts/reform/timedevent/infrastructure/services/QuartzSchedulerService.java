@@ -5,6 +5,7 @@ import static java.time.ZoneOffset.UTC;
 import com.google.common.collect.ImmutableMap;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
 import org.springframework.stereotype.Service;
@@ -41,13 +42,13 @@ public class QuartzSchedulerService implements SchedulerService {
         JobDetail job = JobBuilder.newJob().ofType(TimedEventJob.class)
             .storeDurably()
             .withIdentity(identity)
-            .withDescription("Time Event job")
+            .withDescription("Timed Event job")
             .usingJobData(data)
             .build();
 
         Trigger trigger = TriggerBuilder.newTrigger().forJob(job)
             .withIdentity(identity)
-            .withDescription("Time Event trigger")
+            .withDescription("Timed Event trigger")
             .usingJobData(data)
             .startAt(Date.from(timedEvent.getScheduledDateTime().toInstant()))
             .build();
@@ -66,36 +67,33 @@ public class QuartzSchedulerService implements SchedulerService {
             return trigger.getKey().getName();
 
         } catch (SchedulerException e) {
-            log.error(e.getMessage(), e);
 
-            // TODO handle gracefully
-            throw new RuntimeException(e);
+            throw new SchedulerProcessingException(e);
         }
     }
 
     @Override
-    public TimedEvent get(String identity) {
+    public Optional<TimedEvent> get(String identity) {
 
         try {
 
-            Trigger trigger = quartzScheduler.getTrigger(new TriggerKey(identity));
+            return Optional.ofNullable(quartzScheduler.getTrigger(new TriggerKey(identity)))
+                .map(trigger -> {
+                    JobDataMap data = trigger.getJobDataMap();
 
-            JobDataMap data = trigger.getJobDataMap();
-
-            return new TimedEvent(
-                identity,
-                Event.fromString(data.getString("event")),
-                ZonedDateTime.ofInstant(trigger.getFinalFireTime().toInstant(), UTC),
-                data.getString("jurisdiction"),
-                data.getString("caseType"),
-                data.getLongFromString("caseId")
-            );
+                    return new TimedEvent(
+                        identity,
+                        Event.fromString(data.getString("event")),
+                        ZonedDateTime.ofInstant(trigger.getFinalFireTime().toInstant(), UTC),
+                        data.getString("jurisdiction"),
+                        data.getString("caseType"),
+                        data.getLongFromString("caseId")
+                    );
+                });
 
         } catch (SchedulerException e) {
-            log.error(e.getMessage(), e);
 
-            // TODO handle gracefully
-            throw new RuntimeException(e);
+            throw new SchedulerProcessingException(e);
         }
     }
 }

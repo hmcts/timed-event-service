@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.timedevent;
+package uk.gov.hmcts.reform.timedevent.scenarios;
 
 import static io.restassured.RestAssured.given;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -73,7 +73,7 @@ public class RequestHearingRequirementsFunctionTest extends FunctionalTest {
 
         // execute Timed Event now
         Response response = scheduleEventNow(caseId);
-        assertThat(response.getStatusCode()).isEqualTo(200);
+        assertThat(response.getStatusCode()).isEqualTo(201);
 
         // assert that Timed Event execution changed case state
         assertThatCaseIsInState(caseId, "submitHearingRequirements");
@@ -110,17 +110,4 @@ public class RequestHearingRequirementsFunctionTest extends FunctionalTest {
             ).getState().equals(state)
         );
     }
-
-    // TODO no-authenticated
-
-    // TODO authenticated by s2s only
-
-    // TODO authenticated by idam only
-
-    // TODO wrong request body - missing fields
-
-    // TODO happy path with date in future - assert with get
-
-    // TODO happy path with date in past - immediate run assert with get (NotFound) ?? consider archive endpoint ??
-
 }

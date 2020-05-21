@@ -33,7 +33,7 @@ public class PostTimedEventIntegrationTest extends SpringBootIntegrationTest {
                     .content(timedEvent())
                     .contentType("application/json")
             )
-            .andExpect(status().isOk())
+            .andExpect(status().isCreated())
             .andReturn();
 
         assertEquals(timedEventResponse(identity), postResponse.getResponse().getContentAsString());

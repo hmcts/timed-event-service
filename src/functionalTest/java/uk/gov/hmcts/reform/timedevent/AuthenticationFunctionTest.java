@@ -104,7 +104,7 @@ public class AuthenticationFunctionTest extends FunctionalTest {
     }
 
     @Test
-    public void should_return_200_when_both_headers_are_set_and_they_are_both_valid() {
+    public void should_return_201_when_both_headers_are_set_and_they_are_both_valid() {
 
         Response response = given(requestSpecification)
             .when()
@@ -116,7 +116,7 @@ public class AuthenticationFunctionTest extends FunctionalTest {
             .then()
             .extract().response();
 
-        assertThat(response.getStatusCode()).isEqualTo(200);
+        assertThat(response.getStatusCode()).isEqualTo(201);
 
     }
 

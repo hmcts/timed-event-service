@@ -47,7 +47,7 @@ class TimedEventControllerTest {
 
         ResponseEntity<TimedEvent> response = timedEventController.post(timedEvent);
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(timedEvent.getEvent(), response.getBody().getEvent());
         assertEquals(timedEvent.getScheduledDateTime(), response.getBody().getScheduledDateTime());
         assertEquals(timedEvent.getJurisdiction(), response.getBody().getJurisdiction());

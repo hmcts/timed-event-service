@@ -126,6 +126,42 @@ public class ExecuteEventFunctionTest extends FunctionalTest {
     }
 
     @Test
+    public void should_return_422_when_caseType_is_not_defined_in_ccd() {
+
+        long caseId = caseDataFixture.getCaseId();
+        String event = "requestHearingRequirementsFeature";
+
+        String url = String.format("/testing-support/execute/jurisdiction/%s/case-type/%s/cid/%d/event/%s", jurisdiction, "notExistingCaseType", caseId, event);
+
+        Response response = given(requestSpecification)
+            .when()
+            .post(url)
+            .then()
+            .extract().response();
+
+        assertThat(response.getStatusCode()).isEqualTo(422);
+        assertThat(response.getBody().asString()).contains("The case status did not qualify for the event");
+    }
+
+    @Test
+    public void should_return_403_when_jurisdiction_is_not_defined_in_ccd() {
+
+        long caseId = caseDataFixture.getCaseId();
+        String event = "requestHearingRequirementsFeature";
+
+        String url = String.format("/testing-support/execute/jurisdiction/%s/case-type/%s/cid/%d/event/%s", "notExistingJurisdiction", caseType, caseId, event);
+
+        Response response = given(requestSpecification)
+            .when()
+            .post(url)
+            .then()
+            .extract().response();
+
+        assertThat(response.getStatusCode()).isEqualTo(403);
+        assertThat(response.getBody().asString()).contains("Access Denied");
+    }
+
+    @Test
     public void should_return_200_when_event_can_be_executed() {
 
         caseDataFixture.submitAppeal();
