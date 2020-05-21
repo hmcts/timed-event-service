@@ -63,8 +63,6 @@ security:
     - "/favicon.ico"
     - "/csrf"
     - "/testing-support/**"
-  authorisedServices:
-    - "iac"
   roleEventAccess:
     caseworker-ia-caseofficer:
     - "requestHearingRequirementsFeature"
@@ -84,6 +82,8 @@ idam:
     totp_secret: ${IA_S2S_SECRET:AAAAAAAAAAAAAAAC}
     microservice: ${IA_S2S_MICROSERVICE:ia}
     url: ${S2S_URL:http://127.0.0.1:4502}
+  s2s-authorised:
+    services: ${IA_S2S_AUTHORIZED_SERVICES:iac}
 
 ccd:
   case-data-api:

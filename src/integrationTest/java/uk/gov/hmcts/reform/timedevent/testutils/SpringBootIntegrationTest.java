@@ -29,7 +29,7 @@ import uk.gov.hmcts.reform.timedevent.Application;
 @ExtendWith({
     WiremockResolver.class
 })
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 @ActiveProfiles("integration")
 public class SpringBootIntegrationTest {
 
