@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.timedevent.infrastructure.services;
+package uk.gov.hmcts.reform.timedevent.infrastructure.services.quartz;
 
 import static java.time.ZoneOffset.UTC;
 
@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import uk.gov.hmcts.reform.timedevent.domain.entities.TimedEvent;
 import uk.gov.hmcts.reform.timedevent.domain.entities.ccd.Event;
 import uk.gov.hmcts.reform.timedevent.domain.services.SchedulerService;
+import uk.gov.hmcts.reform.timedevent.infrastructure.services.IdentityProvider;
+import uk.gov.hmcts.reform.timedevent.infrastructure.services.exceptions.SchedulerProcessingException;
 
 @Slf4j
 @Service
@@ -28,6 +30,10 @@ public class QuartzSchedulerService implements SchedulerService {
     @Override
     public String schedule(TimedEvent timedEvent) {
 
+        return scheduleWithRetry(timedEvent, 0);
+    }
+
+    String scheduleWithRetry(TimedEvent timedEvent, long retryCount) {
         String identity = identityProvider.identity();
 
         JobDataMap data = new JobDataMap(
@@ -36,6 +42,7 @@ public class QuartzSchedulerService implements SchedulerService {
                 .put("caseType", timedEvent.getCaseType())
                 .put("caseId", String.valueOf(timedEvent.getCaseId()))
                 .put("event", timedEvent.getEvent().toString())
+                .put("retryCount", String.valueOf(retryCount))
                 .build()
         );
 
