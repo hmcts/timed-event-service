@@ -36,6 +36,7 @@ public class RetryJobListener extends JobListenerSupport {
         return "RetryPolicyJobListener";
     }
 
+    @Override
     public void jobWasExecuted(JobExecutionContext context, JobExecutionException jobException) {
         String identity = context.getJobDetail().getKey().getName();
 
@@ -53,7 +54,7 @@ public class RetryJobListener extends JobListenerSupport {
                 String retriedIdentity = scheduleRetry(data, newDate, retryCount + 1);
 
                 log.info(
-                    "Retry has been scheduled with identity: {}, for event: {}, caseId: {}, date: {}",
+                    "Retry has been scheduled with new identity: {}, for event: {}, caseId: {}, date: {}",
                     retriedIdentity,
                     event,
                     caseId,
@@ -62,7 +63,7 @@ public class RetryJobListener extends JobListenerSupport {
             } else {
 
                 log.error(
-                    "Max number of retries have been processed with last identity: {}, for event: {}, caseId: {}",
+                    "Max number of retries have been processed with the last identity: {}, for event: {}, caseId: {}",
                     identity,
                     event,
                     caseId
