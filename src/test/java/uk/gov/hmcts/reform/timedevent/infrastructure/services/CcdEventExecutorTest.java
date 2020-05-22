@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
+import feign.FeignException;
 import java.util.Collections;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,6 +21,7 @@ import uk.gov.hmcts.reform.timedevent.infrastructure.clients.model.ccd.CaseDetai
 import uk.gov.hmcts.reform.timedevent.infrastructure.clients.model.ccd.StartEventTrigger;
 import uk.gov.hmcts.reform.timedevent.infrastructure.security.SystemTokenGenerator;
 import uk.gov.hmcts.reform.timedevent.infrastructure.security.SystemUserProvider;
+import uk.gov.hmcts.reform.timedevent.infrastructure.security.oauth2.IdentityManagerResponseException;
 
 @ExtendWith(MockitoExtension.class)
 class CcdEventExecutorTest {
@@ -136,5 +138,119 @@ class CcdEventExecutorTest {
 
     }
 
-    // TODO add exception paths tests for each mocked service, implementing within RIA-2690
+    @Test
+    public void should_return_exception_when_idam_is_not_available() {
+
+        String jurisdiction = "jurisdiction";
+        String caseType = "caseType";
+        Event event = Event.EXAMPLE;
+        long caseId = 1234;
+
+        when(systemTokenGenerator.generate()).thenThrow(new RuntimeException());
+
+        CcdEventExecutor ccdEventExecutor = new CcdEventExecutor(systemTokenGenerator, systemUserProvider, s2sAuthTokenGenerator, ccdApi);
+
+        EventExecution execution = new EventExecution(
+            event,
+            jurisdiction,
+            caseType,
+            caseId
+        );
+
+        assertThrows(
+            IdentityManagerResponseException.class,
+            () -> ccdEventExecutor.execute(execution)
+        );
+
+        verify(systemTokenGenerator).generate();
+    }
+
+    @Test
+    public void should_throw_exception_when_s2s_auth_is_not_available() {
+
+        String jurisdiction = "jurisdiction";
+        String caseType = "caseType";
+        Event event = Event.EXAMPLE;
+        long caseId = 1234;
+
+        String token = "token";
+
+        when(systemTokenGenerator.generate()).thenReturn(token);
+
+        when(s2sAuthTokenGenerator.generate()).thenThrow(new RuntimeException());
+
+        CcdEventExecutor ccdEventExecutor = new CcdEventExecutor(systemTokenGenerator, systemUserProvider, s2sAuthTokenGenerator, ccdApi);
+
+        EventExecution execution = new EventExecution(
+            event,
+            jurisdiction,
+            caseType,
+            caseId
+        );
+
+        assertThrows(
+            IdentityManagerResponseException.class,
+            () -> ccdEventExecutor.execute(execution)
+        );
+
+        verify(systemTokenGenerator).generate();
+        verify(s2sAuthTokenGenerator).generate();
+    }
+
+    @Test
+    public void should_throw_same_exception_as_ccd_api_throws_it() {
+
+        String token = "token";
+        String serviceToken = "Bearer serviceToken";
+        String userId = "userId";
+
+        String jurisdiction = "jurisdiction";
+        String caseType = "caseType";
+        Event event = Event.EXAMPLE;
+        long caseId = 1234;
+
+        when(systemTokenGenerator.generate()).thenReturn(token);
+        when(s2sAuthTokenGenerator.generate()).thenReturn(serviceToken);
+
+        when(systemUserProvider.getSystemUserId("Bearer " + token)).thenReturn(userId);
+
+        when(ccdApi.startEvent(
+            "Bearer " + token,
+            serviceToken,
+            userId,
+            jurisdiction,
+            caseType,
+            String.valueOf(caseId),
+            event.toString()
+        )).thenThrow(FeignException.class);
+
+        CcdEventExecutor ccdEventExecutor = new CcdEventExecutor(systemTokenGenerator, systemUserProvider, s2sAuthTokenGenerator, ccdApi);
+
+        EventExecution execution = new EventExecution(
+            event,
+            jurisdiction,
+            caseType,
+            caseId
+        );
+
+        assertThrows(
+            FeignException.class,
+            () -> ccdEventExecutor.execute(execution)
+        );
+
+        verify(systemTokenGenerator).generate();
+        verify(s2sAuthTokenGenerator).generate();
+
+        verify(systemUserProvider).getSystemUserId("Bearer " + token);
+
+        verify(ccdApi).startEvent(
+            "Bearer " + token,
+            serviceToken,
+            userId,
+            jurisdiction,
+            caseType,
+            String.valueOf(caseId),
+            event.toString()
+        );
+    }
 }

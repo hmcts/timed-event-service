@@ -51,7 +51,7 @@ public class RetryJobListener extends JobListenerSupport {
 
             if (retryCount <= maxRetryNumber) {
                 ZonedDateTime newDate = calculateNextScheduledDate();
-                String retriedIdentity = scheduleRetry(data, newDate, retryCount + 1);
+                String retriedIdentity = scheduleRetry(data, newDate, identity, retryCount + 1);
 
                 log.info(
                     "Retry has been scheduled with new identity: {}, for event: {}, caseId: {}, date: {}",
@@ -75,7 +75,7 @@ public class RetryJobListener extends JobListenerSupport {
         log.info("Job finished execution with identity: {}, for event: {}, caseId: {}", identity, event, caseId);
     }
 
-    private String scheduleRetry(JobDataMap data, ZonedDateTime newDate, long retryCount) {
+    private String scheduleRetry(JobDataMap data, ZonedDateTime newDate, String identity, long retryCount) {
 
         return schedulerService.scheduleWithRetry(
             new TimedEvent(
@@ -86,6 +86,7 @@ public class RetryJobListener extends JobListenerSupport {
                 data.getString("caseType"),
                 Long.parseLong(data.getString("caseId"))
             ),
+            identity,
             retryCount
         );
     }

@@ -30,11 +30,10 @@ public class QuartzSchedulerService implements SchedulerService {
     @Override
     public String schedule(TimedEvent timedEvent) {
 
-        return scheduleWithRetry(timedEvent, 0);
+        return scheduleWithRetry(timedEvent, identityProvider.identity(), 0);
     }
 
-    String scheduleWithRetry(TimedEvent timedEvent, long retryCount) {
-        String identity = identityProvider.identity();
+    String scheduleWithRetry(TimedEvent timedEvent, String identity, long retryCount) {
 
         JobDataMap data = new JobDataMap(
             new ImmutableMap.Builder<String, String>()
@@ -62,14 +61,25 @@ public class QuartzSchedulerService implements SchedulerService {
 
         try {
 
-            quartzScheduler.scheduleJob(job, trigger);
+            if (retryCount > 0) {
+                quartzScheduler.rescheduleJob(new TriggerKey(identity), trigger);
 
-            log.info(
-                "Timed Event scheduled for event: {}, case id: {} at: {}",
-                timedEvent.getEvent().toString(),
-                timedEvent.getCaseId(),
-                timedEvent.getScheduledDateTime().toString()
-            );
+                log.info(
+                    "Timed Event re-scheduled for event: {}, case id: {} at: {}",
+                    timedEvent.getEvent().toString(),
+                    timedEvent.getCaseId(),
+                    timedEvent.getScheduledDateTime().toString()
+                );
+            } else {
+                quartzScheduler.scheduleJob(job, trigger);
+
+                log.info(
+                    "Timed Event scheduled for event: {}, case id: {} at: {}",
+                    timedEvent.getEvent().toString(),
+                    timedEvent.getCaseId(),
+                    timedEvent.getScheduledDateTime().toString()
+                );
+            }
 
             return trigger.getKey().getName();
 

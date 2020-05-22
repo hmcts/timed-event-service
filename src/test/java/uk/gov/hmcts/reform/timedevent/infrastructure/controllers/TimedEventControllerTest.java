@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.time.ZonedDateTime;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -39,7 +40,7 @@ class TimedEventControllerTest {
     private String identity = "someId";
 
     @Test
-    void should_return_scheduled_timed_event() {
+    void should_return_scheduled_timed_event_on_post() {
 
         when(schedulerService.schedule(timedEvent)).thenReturn(identity);
 
@@ -59,6 +60,141 @@ class TimedEventControllerTest {
         verify(ccdEventAuthorizor).throwIfNotAuthorized(timedEvent.getEvent());
         verify(schedulerService).schedule(timedEvent);
 
+    }
+
+    @Test
+    void should_return_bad_request_when_event_is_missing_on_post() {
+
+        timedEventController = new TimedEventController(ccdEventAuthorizor, schedulerService);
+
+        ResponseEntity<TimedEvent> response = timedEventController.post(new TimedEvent(
+            "",
+            null,
+            ZonedDateTime.now(),
+            "IA",
+            "Asylum",
+            12345
+        ));
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+
+        verifyNoInteractions(schedulerService);
+        verifyNoInteractions(ccdEventAuthorizor);
+    }
+
+    @Test
+    void should_return_bad_request_when_scheduledDateTime_is_missing_on_post() {
+
+        timedEventController = new TimedEventController(ccdEventAuthorizor, schedulerService);
+
+        ResponseEntity<TimedEvent> response = timedEventController.post(new TimedEvent(
+            "",
+            Event.EXAMPLE,
+            null,
+            "IA",
+            "Asylum",
+            12345
+        ));
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+
+        verifyNoInteractions(schedulerService);
+        verifyNoInteractions(ccdEventAuthorizor);
+    }
+
+    @Test
+    void should_return_bad_request_when_jurisdiction_is_missing_on_post() {
+
+        timedEventController = new TimedEventController(ccdEventAuthorizor, schedulerService);
+
+        ResponseEntity<TimedEvent> response = timedEventController.post(new TimedEvent(
+            "",
+            Event.EXAMPLE,
+            ZonedDateTime.now(),
+            "",
+            "Asylum",
+            12345
+        ));
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+
+        verifyNoInteractions(schedulerService);
+        verifyNoInteractions(ccdEventAuthorizor);
+    }
+
+    @Test
+    void should_return_bad_request_when_caseType_is_missing_on_post() {
+
+        timedEventController = new TimedEventController(ccdEventAuthorizor, schedulerService);
+
+        ResponseEntity<TimedEvent> response = timedEventController.post(new TimedEvent(
+            "",
+            Event.EXAMPLE,
+            ZonedDateTime.now(),
+            "IA",
+            "",
+            12345
+        ));
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+
+        verifyNoInteractions(schedulerService);
+        verifyNoInteractions(ccdEventAuthorizor);
+    }
+
+    @Test
+    void should_return_bad_request_when_caseId_is_missing_on_post() {
+
+        timedEventController = new TimedEventController(ccdEventAuthorizor, schedulerService);
+
+        ResponseEntity<TimedEvent> response = timedEventController.post(new TimedEvent(
+            "",
+            Event.EXAMPLE,
+            ZonedDateTime.now(),
+            "IA",
+            "Asylum",
+            0
+        ));
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+
+        verifyNoInteractions(schedulerService);
+        verifyNoInteractions(ccdEventAuthorizor);
+    }
+
+    @Test
+    void should_return_timed_event_on_get() {
+
+        when(schedulerService.get(timedEvent.getId())).thenReturn(Optional.of(timedEvent));
+
+        timedEventController = new TimedEventController(ccdEventAuthorizor, schedulerService);
+
+        ResponseEntity<TimedEvent> response = timedEventController.get(timedEvent.getId());
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(timedEvent.getEvent(), response.getBody().getEvent());
+        assertEquals(timedEvent.getScheduledDateTime(), response.getBody().getScheduledDateTime());
+        assertEquals(timedEvent.getJurisdiction(), response.getBody().getJurisdiction());
+        assertEquals(timedEvent.getCaseType(), response.getBody().getCaseType());
+        assertEquals(timedEvent.getCaseId(), response.getBody().getCaseId());
+        assertEquals(timedEvent.getId(), response.getBody().getId());
+
+        verify(schedulerService).get(timedEvent.getId());
+    }
+
+    @Test
+    void should_return_not_found_when_when_identity_does_not_exists_on_get() {
+
+        String notExistingIdentity = "notExistingIdentity";
+        when(schedulerService.get(notExistingIdentity)).thenReturn(Optional.empty());
+
+        timedEventController = new TimedEventController(ccdEventAuthorizor, schedulerService);
+
+        ResponseEntity<TimedEvent> response = timedEventController.get(notExistingIdentity);
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+
+        verify(schedulerService).get(notExistingIdentity);
     }
 
     @Test
