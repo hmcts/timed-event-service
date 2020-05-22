@@ -1,5 +1,6 @@
 package uk.gov.hmcts.reform.timedevent.infrastructure.services;
 
+import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import uk.gov.hmcts.reform.timedevent.infrastructure.services.exceptions.NonRetryableException;
@@ -24,8 +25,26 @@ public class RetryableExceptionHandler {
 
     private boolean isExceptionNonRetryable(Exception ex) {
 
+        if (ex instanceof FeignException) {
+
+            FeignException e = (FeignException) ex;
+
+            return caseStatusDidNotQualify(e) || caseStatusDoesNotExist(e);
+        }
         // TODO implement logic for retries based on the exception type / message
 
         return false;
+    }
+
+    private boolean caseStatusDidNotQualify(FeignException e) {
+
+        return e.status() == 422
+               && e.contentUTF8().contains("The case status did not qualify for the event");
+    }
+
+    private boolean caseStatusDoesNotExist(FeignException e) {
+
+        return e.status() == 400
+               && e.contentUTF8().contains("Case reference is not valid");
     }
 }
