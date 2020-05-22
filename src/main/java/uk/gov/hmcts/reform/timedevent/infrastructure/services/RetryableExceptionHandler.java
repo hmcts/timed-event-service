@@ -31,7 +31,6 @@ public class RetryableExceptionHandler {
 
             return caseStatusDidNotQualify(e) || caseStatusDoesNotExist(e);
         }
-        // TODO implement logic for retries based on the exception type / message
 
         return false;
     }
