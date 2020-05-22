@@ -44,7 +44,6 @@ public class RetryJobListener extends JobListenerSupport {
         String event = data.getString("event");
         long caseId = data.getLong("caseId");
 
-
         if (jobException instanceof RetryableException) {
 
             long retryCount = data.getLong("retryCount");
@@ -84,7 +83,7 @@ public class RetryJobListener extends JobListenerSupport {
                 newDate,
                 data.getString("jurisdiction"),
                 data.getString("caseType"),
-                Long.parseLong(data.getString("caseId"))
+                data.getLong("caseId")
             ),
             identity,
             retryCount
