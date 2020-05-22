@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.timedevent.infrastructure.services;
+package uk.gov.hmcts.reform.timedevent.infrastructure.services.exceptions;
 
 public class SchedulerProcessingException extends RuntimeException {
     public SchedulerProcessingException(Throwable throwable) {
