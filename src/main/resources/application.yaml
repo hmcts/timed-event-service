@@ -38,6 +38,10 @@ spring:
             instanceName: timed-event-quartz-scheduler
             instanceId: AUTO
 
+retry:
+  durationInSeconds: ${IA_SCHEDULER_RETRY_DURATION:1800}
+  maxRetryNumber: ${IA_SCHEDULER_MAX_RETRY_NUMBER:50}
+
 health:
   services:
     idam:
