@@ -11,7 +11,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import uk.gov.hmcts.reform.timedevent.domain.entities.TimedEvent;
-import uk.gov.hmcts.reform.timedevent.infrastructure.services.SchedulerProcessingException;
+import uk.gov.hmcts.reform.timedevent.infrastructure.services.exceptions.SchedulerProcessingException;
 
 @Slf4j
 @ControllerAdvice(basePackages = "uk.gov.hmcts.reform.timedevent.infrastructure.controllers")
