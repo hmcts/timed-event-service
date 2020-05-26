@@ -83,7 +83,7 @@ public class RequestHearingRequirementsFunctionTest extends FunctionalTest {
 
     private void assertThatCaseIsInState(long caseId, String state) {
 
-        await().pollInterval(2, SECONDS).atMost(10, SECONDS).until(() ->
+        await().pollInterval(2, SECONDS).atMost(60, SECONDS).until(() ->
             ccdApi.get(
                 systemUserToken,
                 caseDataFixture.getS2sToken(),

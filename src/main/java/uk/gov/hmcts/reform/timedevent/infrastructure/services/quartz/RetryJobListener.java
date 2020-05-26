@@ -8,6 +8,7 @@ import org.quartz.JobExecutionException;
 import org.quartz.listeners.JobListenerSupport;
 import uk.gov.hmcts.reform.timedevent.domain.entities.TimedEvent;
 import uk.gov.hmcts.reform.timedevent.domain.entities.ccd.Event;
+import uk.gov.hmcts.reform.timedevent.domain.services.SchedulerService;
 import uk.gov.hmcts.reform.timedevent.infrastructure.services.DateTimeProvider;
 import uk.gov.hmcts.reform.timedevent.infrastructure.services.exceptions.RetryableException;
 
@@ -16,13 +17,13 @@ public class RetryJobListener extends JobListenerSupport {
 
     private final long durationInSeconds;
     private final long maxRetryNumber;
-    private final QuartzSchedulerService schedulerService;
+    private final SchedulerService schedulerService;
     private final DateTimeProvider dateTimeProvider;
 
     public RetryJobListener(
         long durationInSeconds,
         long maxRetryNumber,
-        QuartzSchedulerService schedulerService,
+        SchedulerService schedulerService,
         DateTimeProvider dateTimeProvider
     ) {
         this.durationInSeconds = durationInSeconds;
@@ -76,16 +77,15 @@ public class RetryJobListener extends JobListenerSupport {
 
     private String scheduleRetry(JobDataMap data, ZonedDateTime newDate, String identity, long retryCount) {
 
-        return schedulerService.scheduleWithRetry(
+        return schedulerService.reschedule(
             new TimedEvent(
-                "",
+                identity,
                 Event.fromString(data.getString("event")),
                 newDate,
                 data.getString("jurisdiction"),
                 data.getString("caseType"),
                 data.getLong("caseId")
             ),
-            identity,
             retryCount
         );
     }

@@ -15,3 +15,11 @@ variable "deployment_namespace" {}
 variable "common_tags" {
   type = "map"
 }
+
+variable "postgresql_database_name" {
+  default = "ia_timed_event_service"
+}
+
+variable "postgresql_user" {
+  default = "ia_timed_event_service"
+}

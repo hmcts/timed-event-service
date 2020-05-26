@@ -2,6 +2,7 @@ package uk.gov.hmcts.reform.timedevent.infrastructure.controllers;
 
 import static org.springframework.http.ResponseEntity.*;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,12 @@ public class TimedEventController {
 
         ccdEventAuthorizor.throwIfNotAuthorized(timedEvent.getEvent());
 
-        String identity = schedulerService.schedule(timedEvent);
+        String identity = "";
+        if (StringUtils.isBlank(timedEvent.getId())) {
+            identity = schedulerService.schedule(timedEvent);
+        } else {
+            identity = schedulerService.reschedule(timedEvent, 0);
+        }
 
         return status(HttpStatus.CREATED).body(
             new TimedEvent(

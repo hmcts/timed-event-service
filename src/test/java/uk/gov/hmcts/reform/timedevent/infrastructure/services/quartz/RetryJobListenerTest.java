@@ -16,6 +16,7 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobKey;
 import uk.gov.hmcts.reform.timedevent.domain.entities.TimedEvent;
 import uk.gov.hmcts.reform.timedevent.domain.entities.ccd.Event;
+import uk.gov.hmcts.reform.timedevent.domain.services.SchedulerService;
 import uk.gov.hmcts.reform.timedevent.infrastructure.services.DateTimeProvider;
 import uk.gov.hmcts.reform.timedevent.infrastructure.services.exceptions.NonRetryableException;
 import uk.gov.hmcts.reform.timedevent.infrastructure.services.exceptions.RetryableException;
@@ -33,7 +34,7 @@ class RetryJobListenerTest {
     private String identity = "someId";
 
     @Mock
-    private QuartzSchedulerService quartzSchedulerService;
+    private SchedulerService quartzSchedulerService;
 
     @Mock
     private DateTimeProvider dateTimeProvider;
@@ -111,9 +112,9 @@ class RetryJobListenerTest {
         ArgumentCaptor<TimedEvent> timedEvent = ArgumentCaptor.forClass(TimedEvent.class);
 
         verify(dateTimeProvider).now();
-        verify(quartzSchedulerService).scheduleWithRetry(timedEvent.capture(), eq(identity), eq(retryCount + 1));
+        verify(quartzSchedulerService).reschedule(timedEvent.capture(), eq(retryCount + 1));
 
-        assertEquals("", timedEvent.getValue().getId());
+        assertEquals(identity, timedEvent.getValue().getId());
         assertEquals(caseId, timedEvent.getValue().getCaseId());
         assertEquals(jurisdiction, timedEvent.getValue().getJurisdiction());
         assertEquals(caseType, timedEvent.getValue().getCaseType());
