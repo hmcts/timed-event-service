@@ -63,6 +63,38 @@ class TimedEventControllerTest {
     }
 
     @Test
+    void should_return_rescheduled_timed_event_when_id_provided_on_post() {
+
+        TimedEvent timedEvent = new TimedEvent(
+            identity,
+            Event.UNKNOWN,
+            ZonedDateTime.now(),
+            "jurisdiction",
+            "caseType",
+            1234
+        );
+
+        when(schedulerService.reschedule(timedEvent, 0)).thenReturn(identity);
+
+        timedEventController = new TimedEventController(ccdEventAuthorizor, schedulerService);
+
+        ResponseEntity<TimedEvent> response = timedEventController.post(timedEvent);
+
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(timedEvent.getEvent(), response.getBody().getEvent());
+        assertEquals(timedEvent.getScheduledDateTime(), response.getBody().getScheduledDateTime());
+        assertEquals(timedEvent.getJurisdiction(), response.getBody().getJurisdiction());
+        assertEquals(timedEvent.getCaseType(), response.getBody().getCaseType());
+        assertEquals(timedEvent.getCaseId(), response.getBody().getCaseId());
+
+        assertEquals(identity, response.getBody().getId());
+
+        verify(ccdEventAuthorizor).throwIfNotAuthorized(timedEvent.getEvent());
+        verify(schedulerService).reschedule(timedEvent, 0);
+
+    }
+
+    @Test
     void should_return_bad_request_when_event_is_missing_on_post() {
 
         timedEventController = new TimedEventController(ccdEventAuthorizor, schedulerService);

@@ -36,22 +36,54 @@ public class PostTimedEventIntegrationTest extends SpringBootIntegrationTest {
             .andExpect(status().isCreated())
             .andReturn();
 
-        assertEquals(timedEventResponse(identity), postResponse.getResponse().getContentAsString());
+        assertEquals(timedEventWithId(identity), postResponse.getResponse().getContentAsString());
 
         // assert creation of timed event
         MvcResult getResponse = mockMvc
             .perform(
                 get("/timed-event/" + identity)
-                    .content(timedEvent())
                     .contentType("application/json")
             )
             .andExpect(status().isOk())
             .andReturn();
 
-        assertEquals(timedEventResponse(identity), getResponse.getResponse().getContentAsString());
+        assertEquals(timedEventWithId(identity), getResponse.getResponse().getContentAsString());
+
+        // change scheduled date time
+        postResponse = mockMvc
+            .perform(
+                post("/timed-event")
+                    .content(timedEventWithIdAndDate(identity))
+                    .contentType("application/json")
+            )
+            .andExpect(status().isCreated())
+            .andReturn();
+
+        assertEquals(timedEventWithIdAndDate(identity), postResponse.getResponse().getContentAsString());
+
+        // assert changed of timed event
+        getResponse = mockMvc
+            .perform(
+                get("/timed-event/" + identity)
+                    .contentType("application/json")
+            )
+            .andExpect(status().isOk())
+            .andReturn();
+
+        assertEquals(timedEventWithIdAndDate(identity), getResponse.getResponse().getContentAsString());
     }
 
-    private String timedEventResponse(String id) {
+    private String timedEventWithIdAndDate(String id) {
+        return "{\"id\":\"" + id + "\","
+               + "\"event\":\"example\","
+               + "\"scheduledDateTime\":\"2030-07-12T10:00:00Z\","
+               + "\"jurisdiction\":\"IA\","
+               + "\"caseType\":\"Asylum\","
+               + "\"caseId\":1588772172174023"
+               + "}";
+    }
+
+    private String timedEventWithId(String id) {
         return "{\"id\":\"" + id + "\","
                + "\"event\":\"example\","
                + "\"scheduledDateTime\":\"2030-05-12T10:00:00Z\","

@@ -7,8 +7,11 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.quartz.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import uk.gov.hmcts.reform.timedevent.domain.entities.TimedEvent;
 import uk.gov.hmcts.reform.timedevent.domain.entities.ccd.Event;
 import uk.gov.hmcts.reform.timedevent.domain.services.SchedulerService;
@@ -28,60 +31,61 @@ public class QuartzSchedulerService implements SchedulerService {
     }
 
     @Override
+    @Transactional
     public String schedule(TimedEvent timedEvent) {
 
-        return scheduleWithRetry(timedEvent, identityProvider.identity(), 0);
-    }
+        String identity = identityProvider.identity();
 
-    String scheduleWithRetry(TimedEvent timedEvent, String identity, long retryCount) {
-
-        JobDataMap data = new JobDataMap(
-            new ImmutableMap.Builder<String, String>()
-                .put("jurisdiction", timedEvent.getJurisdiction())
-                .put("caseType", timedEvent.getCaseType())
-                .put("caseId", String.valueOf(timedEvent.getCaseId()))
-                .put("event", timedEvent.getEvent().toString())
-                .put("retryCount", String.valueOf(retryCount))
-                .build()
+        Pair<JobDetail, Trigger> jobAndTrigger = createJobAndTrigger(
+            new TimedEvent(
+                identity,
+                timedEvent.getEvent(),
+                timedEvent.getScheduledDateTime(),
+                timedEvent.getJurisdiction(),
+                timedEvent.getCaseType(),
+                timedEvent.getCaseId()
+            ),
+            0
         );
-
-        JobDetail job = JobBuilder.newJob().ofType(TimedEventJob.class)
-            .storeDurably()
-            .withIdentity(identity)
-            .withDescription("Timed Event job")
-            .usingJobData(data)
-            .build();
-
-        Trigger trigger = TriggerBuilder.newTrigger().forJob(job)
-            .withIdentity(identity)
-            .withDescription("Timed Event trigger")
-            .usingJobData(data)
-            .startAt(Date.from(timedEvent.getScheduledDateTime().toInstant()))
-            .build();
 
         try {
 
-            if (retryCount > 0) {
-                quartzScheduler.rescheduleJob(new TriggerKey(identity), trigger);
+            quartzScheduler.scheduleJob(jobAndTrigger.getLeft(), jobAndTrigger.getRight());
 
-                log.info(
-                    "Timed Event re-scheduled for event: {}, case id: {} at: {}",
-                    timedEvent.getEvent().toString(),
-                    timedEvent.getCaseId(),
-                    timedEvent.getScheduledDateTime().toString()
-                );
-            } else {
-                quartzScheduler.scheduleJob(job, trigger);
+            log.info(
+                "Timed Event scheduled for event: {}, case id: {} at: {}",
+                timedEvent.getEvent().toString(),
+                timedEvent.getCaseId(),
+                timedEvent.getScheduledDateTime().toString()
+            );
 
-                log.info(
-                    "Timed Event scheduled for event: {}, case id: {} at: {}",
-                    timedEvent.getEvent().toString(),
-                    timedEvent.getCaseId(),
-                    timedEvent.getScheduledDateTime().toString()
-                );
-            }
+            return jobAndTrigger.getRight().getKey().getName();
 
-            return trigger.getKey().getName();
+        } catch (SchedulerException e) {
+
+            throw new SchedulerProcessingException(e);
+        }
+
+    }
+
+    @Override
+    @Transactional
+    public String reschedule(TimedEvent timedEvent, long retryCount) {
+
+        Pair<JobDetail, Trigger> jobAndTrigger = createJobAndTrigger(timedEvent, retryCount);
+
+        try {
+
+            quartzScheduler.rescheduleJob(new TriggerKey(timedEvent.getId()), jobAndTrigger.getRight());
+
+            log.info(
+                "Timed Event re-scheduled for event: {}, case id: {} at: {}",
+                timedEvent.getEvent().toString(),
+                timedEvent.getCaseId(),
+                timedEvent.getScheduledDateTime().toString()
+            );
+
+            return jobAndTrigger.getRight().getKey().getName();
 
         } catch (SchedulerException e) {
 
@@ -90,6 +94,7 @@ public class QuartzSchedulerService implements SchedulerService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<TimedEvent> get(String identity) {
 
         try {
@@ -113,4 +118,34 @@ public class QuartzSchedulerService implements SchedulerService {
             throw new SchedulerProcessingException(e);
         }
     }
+
+    private Pair<JobDetail, Trigger> createJobAndTrigger(TimedEvent timedEvent, long retryCount) {
+
+        JobDataMap data = new JobDataMap(
+            new ImmutableMap.Builder<String, String>()
+                .put("jurisdiction", timedEvent.getJurisdiction())
+                .put("caseType", timedEvent.getCaseType())
+                .put("caseId", String.valueOf(timedEvent.getCaseId()))
+                .put("event", timedEvent.getEvent().toString())
+                .put("retryCount", String.valueOf(retryCount))
+                .build()
+        );
+
+        JobDetail job = JobBuilder.newJob().ofType(TimedEventJob.class)
+            .storeDurably()
+            .withIdentity(timedEvent.getId())
+            .withDescription("Timed Event job")
+            .usingJobData(data)
+            .build();
+
+        Trigger trigger = TriggerBuilder.newTrigger().forJob(job)
+            .withIdentity(timedEvent.getId())
+            .withDescription("Timed Event trigger")
+            .usingJobData(data)
+            .startAt(Date.from(timedEvent.getScheduledDateTime().toInstant()))
+            .build();
+
+        return new ImmutablePair<>(job, trigger);
+    }
+
 }

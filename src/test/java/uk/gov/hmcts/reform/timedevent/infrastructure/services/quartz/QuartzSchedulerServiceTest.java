@@ -70,7 +70,7 @@ class QuartzSchedulerServiceTest {
         QuartzSchedulerService schedulerService = new QuartzSchedulerService(scheduler, identityProvider);
 
         TimedEvent timedEvent = new TimedEvent(
-            "",
+            identity,
             Event.EXAMPLE,
             scheduledDateTime,
             jurisdiction,
@@ -80,7 +80,7 @@ class QuartzSchedulerServiceTest {
 
         long retryCount = 1;
 
-        assertEquals(identity, schedulerService.scheduleWithRetry(timedEvent, identity, retryCount));
+        assertEquals(identity, schedulerService.reschedule(timedEvent, retryCount));
 
         ArgumentCaptor<Trigger> trigger = ArgumentCaptor.forClass(Trigger.class);
 
