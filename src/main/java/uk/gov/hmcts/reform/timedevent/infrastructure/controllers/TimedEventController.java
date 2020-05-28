@@ -2,6 +2,10 @@ package uk.gov.hmcts.reform.timedevent.infrastructure.controllers;
 
 import static org.springframework.http.ResponseEntity.*;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.Authorization;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.http.HttpStatus;
@@ -22,6 +26,37 @@ public class TimedEventController {
         this.schedulerService = timedEventService;
     }
 
+    @ApiOperation(
+        value = "Scheduling / rescheduling timed event",
+        authorizations =
+        {
+            @Authorization(value = "Authorization"),
+            @Authorization(value = "ServiceAuthorization")
+        }
+    )
+    @ApiResponses({
+        @ApiResponse(
+            code = 201,
+            message = "Created TimeEvent object",
+            response = TimedEvent.class
+        ),
+        @ApiResponse(
+            code = 415,
+            message = "Unsupported Media Type"
+        ),
+        @ApiResponse(
+            code = 400,
+            message = "Bad Request"
+        ),
+        @ApiResponse(
+            code = 403,
+            message = "Forbidden"
+        ),
+        @ApiResponse(
+            code = 500,
+            message = "Internal Server Error"
+        )
+    })
     @PostMapping("/timed-event")
     public ResponseEntity<TimedEvent> post(@RequestBody TimedEvent timedEvent) {
 
@@ -50,11 +85,38 @@ public class TimedEventController {
         );
     }
 
-    @GetMapping("/timed-event/{identity}")
-    public ResponseEntity<TimedEvent> get(@PathVariable("identity") String identity) {
+    @ApiOperation(
+        value = "Getting scheduled event",
+        authorizations =
+            {
+                @Authorization(value = "Authorization"),
+                @Authorization(value = "ServiceAuthorization")
+            }
+    )
+    @ApiResponses({
+        @ApiResponse(
+            code = 200,
+            message = "TimeEvent object",
+            response = TimedEvent.class
+        ),
+        @ApiResponse(
+            code = 404,
+            message = "Not Found"
+        ),
+        @ApiResponse(
+            code = 401,
+            message = "Forbidden"
+        ),
+        @ApiResponse(
+            code = 500,
+            message = "Internal Server Error"
+        )
+    })
+    @GetMapping("/timed-event/{id}")
+    public ResponseEntity<TimedEvent> get(@PathVariable("id") String id) {
 
         return schedulerService
-            .get(identity)
+            .get(id)
             .map(ResponseEntity::ok)
             .orElse(notFound().build());
     }

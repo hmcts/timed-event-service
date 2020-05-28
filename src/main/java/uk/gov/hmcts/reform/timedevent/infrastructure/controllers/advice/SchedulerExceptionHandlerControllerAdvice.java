@@ -18,7 +18,7 @@ import uk.gov.hmcts.reform.timedevent.infrastructure.services.exceptions.Schedul
 @RequestMapping
 public class SchedulerExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({SchedulerProcessingException.class})
+    @ExceptionHandler({SchedulerProcessingException.class, RuntimeException.class})
     protected ResponseEntity<TimedEvent> handleExceptions(HttpServletRequest request, Exception ex) {
         log.error(
             "Exception for the CCDCaseId: {}, message: {}",
