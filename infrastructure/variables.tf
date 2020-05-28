@@ -1,5 +1,9 @@
 variable "product" {}
 
+variable "raw_product" {
+  default = "ia"
+}
+
 variable "component" {}
 
 variable "location" {
