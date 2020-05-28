@@ -9,11 +9,11 @@ java:
     CCD_URL: "http://ccd-data-store-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal"
     POSTGRES_PORT: 5432
     POSTGRES_HOST: ia-timed-event-service-postgres-db-{{ .Values.global.environment }}.postgres.database.azure.com
-    POSTGRES_USERNAME: ia_timed_event_service@ia-timed-event-service-postgres-db-{{ .Values.global.environment }}
+    POSTGRES_USERNAME: ia_tes@ia-timed-event-service-postgres-db-{{ .Values.global.environment }}
     POSTGRES_CONNECTION_OPTIONS: "?sslmode=require"
   postgresql:
-    postgresqlUsername: ia_timed_event_service
-    postgresqlPassword: ia_timed_event_service
+    postgresqlUsername: ia_tes
+    postgresqlPassword: ia_tes
     postgresqlDatabase: ia_timed_event_service
     service:
       port: 5432

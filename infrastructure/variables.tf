@@ -25,5 +25,5 @@ variable "postgresql_database_name" {
 }
 
 variable "postgresql_user" {
-  default = "ia_timed_event_service"
+  default = "ia_tes"
 }
