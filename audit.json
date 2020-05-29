@@ -1,2 +1,382 @@
-{
-}
+[
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA response code of 404 was returned by the server.\u003c/p\u003e\u003cp\u003eThis may indicate that the application is failing to handle unexpected input correctly.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on HTTP Response Code Error' script\u003c/p\u003e",
+    "fingerprint": "100000_A Client Error response code was returned by the server_http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction/jurisdiction/case-type/caseType_GET",
+    "detail": "A Client Error response code was returned by the server \n Evidence: HTTP/1.1 404 \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction/jurisdiction/case-type/caseType Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA response code of 404 was returned by the server.\u003c/p\u003e\u003cp\u003eThis may indicate that the application is failing to handle unexpected input correctly.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on HTTP Response Code Error' script\u003c/p\u003e",
+    "fingerprint": "100000_A Client Error response code was returned by the server_http://ia-timed-event-service-aat.service.core-compute-aat.internal/v2/api-docs/_GET",
+    "detail": "A Client Error response code was returned by the server \n Evidence: HTTP/1.1 401 \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/v2/api-docs/ Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA response code of 404 was returned by the server.\u003c/p\u003e\u003cp\u003eThis may indicate that the application is failing to handle unexpected input correctly.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on HTTP Response Code Error' script\u003c/p\u003e",
+    "fingerprint": "100000_A Client Error response code was returned by the server_http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/_GET",
+    "detail": "A Client Error response code was returned by the server \n Evidence: HTTP/1.1 404 \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/ Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA response code of 404 was returned by the server.\u003c/p\u003e\u003cp\u003eThis may indicate that the application is failing to handle unexpected input correctly.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on HTTP Response Code Error' script\u003c/p\u003e",
+    "fingerprint": "100000_A Client Error response code was returned by the server_http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction_GET",
+    "detail": "A Client Error response code was returned by the server \n Evidence: HTTP/1.1 404 \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA response code of 404 was returned by the server.\u003c/p\u003e\u003cp\u003eThis may indicate that the application is failing to handle unexpected input correctly.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on HTTP Response Code Error' script\u003c/p\u003e",
+    "fingerprint": "100000_A Client Error response code was returned by the server_http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction/jurisdiction/case-type/_GET",
+    "detail": "A Client Error response code was returned by the server \n Evidence: HTTP/1.1 404 \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction/jurisdiction/case-type/ Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA response code of 404 was returned by the server.\u003c/p\u003e\u003cp\u003eThis may indicate that the application is failing to handle unexpected input correctly.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on HTTP Response Code Error' script\u003c/p\u003e",
+    "fingerprint": "100000_A Client Error response code was returned by the server_http://ia-timed-event-service-aat.service.core-compute-aat.internal/timed-event_POST",
+    "detail": "A Client Error response code was returned by the server \n Evidence: HTTP/1.1 401 \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/timed-event Method: POST",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA response code of 404 was returned by the server.\u003c/p\u003e\u003cp\u003eThis may indicate that the application is failing to handle unexpected input correctly.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on HTTP Response Code Error' script\u003c/p\u003e",
+    "fingerprint": "100000_A Client Error response code was returned by the server_http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction/jurisdiction/case-type/caseType/_GET",
+    "detail": "A Client Error response code was returned by the server \n Evidence: HTTP/1.1 404 \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction/jurisdiction/case-type/caseType/ Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA response code of 404 was returned by the server.\u003c/p\u003e\u003cp\u003eThis may indicate that the application is failing to handle unexpected input correctly.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on HTTP Response Code Error' script\u003c/p\u003e",
+    "fingerprint": "100000_A Client Error response code was returned by the server_http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction/jurisdiction/case-type/caseType/cid/_GET",
+    "detail": "A Client Error response code was returned by the server \n Evidence: HTTP/1.1 404 \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction/jurisdiction/case-type/caseType/cid/ Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA response code of 404 was returned by the server.\u003c/p\u003e\u003cp\u003eThis may indicate that the application is failing to handle unexpected input correctly.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on HTTP Response Code Error' script\u003c/p\u003e",
+    "fingerprint": "100000_A Client Error response code was returned by the server_http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/5919972592238871514_GET",
+    "detail": "A Client Error response code was returned by the server \n Evidence: HTTP/1.1 404 \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/5919972592238871514 Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA response code of 404 was returned by the server.\u003c/p\u003e\u003cp\u003eThis may indicate that the application is failing to handle unexpected input correctly.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on HTTP Response Code Error' script\u003c/p\u003e",
+    "fingerprint": "100000_A Client Error response code was returned by the server_http://ia-timed-event-service-aat.service.core-compute-aat.internal/.htaccess_GET",
+    "detail": "A Client Error response code was returned by the server \n Evidence: HTTP/1.1 401 \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/.htaccess Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA response code of 404 was returned by the server.\u003c/p\u003e\u003cp\u003eThis may indicate that the application is failing to handle unexpected input correctly.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on HTTP Response Code Error' script\u003c/p\u003e",
+    "fingerprint": "100000_A Client Error response code was returned by the server_http://ia-timed-event-service-aat.service.core-compute-aat.internal/timed-event/id/_GET",
+    "detail": "A Client Error response code was returned by the server \n Evidence: HTTP/1.1 401 \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/timed-event/id/ Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA response code of 404 was returned by the server.\u003c/p\u003e\u003cp\u003eThis may indicate that the application is failing to handle unexpected input correctly.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on HTTP Response Code Error' script\u003c/p\u003e",
+    "fingerprint": "100000_A Client Error response code was returned by the server_http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction/jurisdiction/case-type/caseType/cid/10/5679548401943822007_GET",
+    "detail": "A Client Error response code was returned by the server \n Evidence: HTTP/1.1 404 \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction/jurisdiction/case-type/caseType/cid/10/5679548401943822007 Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA response code of 404 was returned by the server.\u003c/p\u003e\u003cp\u003eThis may indicate that the application is failing to handle unexpected input correctly.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on HTTP Response Code Error' script\u003c/p\u003e",
+    "fingerprint": "100000_A Client Error response code was returned by the server_http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction/jurisdiction/case-type/caseType/cid/10_GET",
+    "detail": "A Client Error response code was returned by the server \n Evidence: HTTP/1.1 404 \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction/jurisdiction/case-type/caseType/cid/10 Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA response code of 404 was returned by the server.\u003c/p\u003e\u003cp\u003eThis may indicate that the application is failing to handle unexpected input correctly.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on HTTP Response Code Error' script\u003c/p\u003e",
+    "fingerprint": "100000_A Client Error response code was returned by the server_http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction/jurisdiction/case-type/caseType/.htaccess_GET",
+    "detail": "A Client Error response code was returned by the server \n Evidence: HTTP/1.1 404 \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction/jurisdiction/case-type/caseType/.htaccess Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA response code of 404 was returned by the server.\u003c/p\u003e\u003cp\u003eThis may indicate that the application is failing to handle unexpected input correctly.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on HTTP Response Code Error' script\u003c/p\u003e",
+    "fingerprint": "100000_A Client Error response code was returned by the server_http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction/jurisdiction/case-type/caseType/trace.axd_GET",
+    "detail": "A Client Error response code was returned by the server \n Evidence: HTTP/1.1 404 \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction/jurisdiction/case-type/caseType/trace.axd Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA response code of 404 was returned by the server.\u003c/p\u003e\u003cp\u003eThis may indicate that the application is failing to handle unexpected input correctly.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on HTTP Response Code Error' script\u003c/p\u003e",
+    "fingerprint": "100000_A Client Error response code was returned by the server_http://ia-timed-event-service-aat.service.core-compute-aat.internal/elmah.axd_GET",
+    "detail": "A Client Error response code was returned by the server \n Evidence: HTTP/1.1 401 \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/elmah.axd Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA response code of 404 was returned by the server.\u003c/p\u003e\u003cp\u003eThis may indicate that the application is failing to handle unexpected input correctly.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on HTTP Response Code Error' script\u003c/p\u003e",
+    "fingerprint": "100000_A Client Error response code was returned by the server_http://ia-timed-event-service-aat.service.core-compute-aat.internal/v2/2629133796510060377_GET",
+    "detail": "A Client Error response code was returned by the server \n Evidence: HTTP/1.1 401 \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/v2/2629133796510060377 Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA response code of 404 was returned by the server.\u003c/p\u003e\u003cp\u003eThis may indicate that the application is failing to handle unexpected input correctly.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on HTTP Response Code Error' script\u003c/p\u003e",
+    "fingerprint": "100000_A Client Error response code was returned by the server_http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute_GET",
+    "detail": "A Client Error response code was returned by the server \n Evidence: HTTP/1.1 404 \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA response code of 404 was returned by the server.\u003c/p\u003e\u003cp\u003eThis may indicate that the application is failing to handle unexpected input correctly.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on HTTP Response Code Error' script\u003c/p\u003e",
+    "fingerprint": "100000_A Client Error response code was returned by the server_http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/trace.axd_GET",
+    "detail": "A Client Error response code was returned by the server \n Evidence: HTTP/1.1 404 \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/trace.axd Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA response code of 404 was returned by the server.\u003c/p\u003e\u003cp\u003eThis may indicate that the application is failing to handle unexpected input correctly.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on HTTP Response Code Error' script\u003c/p\u003e",
+    "fingerprint": "100000_A Client Error response code was returned by the server_http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction/jurisdiction/case-type/.htaccess_GET",
+    "detail": "A Client Error response code was returned by the server \n Evidence: HTTP/1.1 404 \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction/jurisdiction/case-type/.htaccess Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eThe ASP.NET Trace Viewer (trace.axd) was found to be available. This component can leak a significant amount of valuable information.\u003c/p\u003e",
+    "fingerprint": "40029_Trace.axd Information Leak_http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction/jurisdiction/case-type/caseType/cid/10/event/trace.axd_GET",
+    "detail": "Trace.axd Information Leak \n Evidence: HTTP/1.1 401 Unauthorized \n Solution: \u003cp\u003eConsider whether or not Trace Viewer is actually required in production, if it isn't then disable it. If it is then ensure access to it requires authentication and authorization.\u003c/p\u003e \n Other info: \u003cp\u003eBased on response status code Trace Viewer may be protected by an authentication or authorization mechanism.  \u003c/p\u003e \n Reference: \u003cp\u003ehttps://msdn.microsoft.com/en-us/library/bb386420.aspx\u003c/p\u003e\u003cp\u003ehttps://msdn.microsoft.com/en-us/library/wwh16c6c.aspx\u003c/p\u003e\u003cp\u003ehttps://www.dotnetperls.com/trace\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction/jurisdiction/case-type/caseType/cid/10/event/trace.axd Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eThe ASP.NET Trace Viewer (trace.axd) was found to be available. This component can leak a significant amount of valuable information.\u003c/p\u003e",
+    "fingerprint": "40029_Trace.axd Information Leak_http://ia-timed-event-service-aat.service.core-compute-aat.internal/v2/trace.axd_GET",
+    "detail": "Trace.axd Information Leak \n Evidence: HTTP/1.1 401 Unauthorized \n Solution: \u003cp\u003eConsider whether or not Trace Viewer is actually required in production, if it isn't then disable it. If it is then ensure access to it requires authentication and authorization.\u003c/p\u003e \n Other info: \u003cp\u003eBased on response status code Trace Viewer may be protected by an authentication or authorization mechanism.  \u003c/p\u003e \n Reference: \u003cp\u003ehttps://msdn.microsoft.com/en-us/library/bb386420.aspx\u003c/p\u003e\u003cp\u003ehttps://msdn.microsoft.com/en-us/library/wwh16c6c.aspx\u003c/p\u003e\u003cp\u003ehttps://www.dotnetperls.com/trace\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/v2/trace.axd Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eThe ASP.NET Trace Viewer (trace.axd) was found to be available. This component can leak a significant amount of valuable information.\u003c/p\u003e",
+    "fingerprint": "40029_Trace.axd Information Leak_http://ia-timed-event-service-aat.service.core-compute-aat.internal/trace.axd_GET",
+    "detail": "Trace.axd Information Leak \n Evidence: HTTP/1.1 401 Unauthorized \n Solution: \u003cp\u003eConsider whether or not Trace Viewer is actually required in production, if it isn't then disable it. If it is then ensure access to it requires authentication and authorization.\u003c/p\u003e \n Other info: \u003cp\u003eBased on response status code Trace Viewer may be protected by an authentication or authorization mechanism.  \u003c/p\u003e \n Reference: \u003cp\u003ehttps://msdn.microsoft.com/en-us/library/bb386420.aspx\u003c/p\u003e\u003cp\u003ehttps://msdn.microsoft.com/en-us/library/wwh16c6c.aspx\u003c/p\u003e\u003cp\u003ehttps://www.dotnetperls.com/trace\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/trace.axd Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eThe ASP.NET Trace Viewer (trace.axd) was found to be available. This component can leak a significant amount of valuable information.\u003c/p\u003e",
+    "fingerprint": "40029_Trace.axd Information Leak_http://ia-timed-event-service-aat.service.core-compute-aat.internal/timed-event/trace.axd_GET",
+    "detail": "Trace.axd Information Leak \n Evidence: HTTP/1.1 401 Unauthorized \n Solution: \u003cp\u003eConsider whether or not Trace Viewer is actually required in production, if it isn't then disable it. If it is then ensure access to it requires authentication and authorization.\u003c/p\u003e \n Other info: \u003cp\u003eBased on response status code Trace Viewer may be protected by an authentication or authorization mechanism.  \u003c/p\u003e \n Reference: \u003cp\u003ehttps://msdn.microsoft.com/en-us/library/bb386420.aspx\u003c/p\u003e\u003cp\u003ehttps://msdn.microsoft.com/en-us/library/wwh16c6c.aspx\u003c/p\u003e\u003cp\u003ehttps://www.dotnetperls.com/trace\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/timed-event/trace.axd Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eThe Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. This allows older versions of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing the response body to be interpreted and displayed as a content type other than the declared content type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if one is set), rather than performing MIME-sniffing.\u003c/p\u003e",
+    "fingerprint": "10021_X-Content-Type-Options Header Missing_http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/system-user_GET",
+    "detail": "X-Content-Type-Options Header Missing \n Evidence: null \n Solution: \u003cp\u003eEnsure that the application/web server sets the Content-Type header appropriately, and that it sets the X-Content-Type-Options header to 'nosniff' for all web pages.\u003c/p\u003e\u003cp\u003eIf possible, ensure that the end user uses a standards-compliant and modern web browser that does not perform MIME-sniffing at all, or that can be directed by the web application/web server to not perform MIME-sniffing.\u003c/p\u003e \n Other info: \u003cp\u003eThis issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\u003c/p\u003e\u003cp\u003eAt \"High\" threshold this scanner will not alert on client or server error responses.\u003c/p\u003e \n Reference: \u003cp\u003ehttp://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx\u003c/p\u003e\u003cp\u003ehttps://owasp.org/www-community/Security_Headers\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/system-user Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eThe Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. This allows older versions of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing the response body to be interpreted and displayed as a content type other than the declared content type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if one is set), rather than performing MIME-sniffing.\u003c/p\u003e",
+    "fingerprint": "10021_X-Content-Type-Options Header Missing_http://ia-timed-event-service-aat.service.core-compute-aat.internal/_GET",
+    "detail": "X-Content-Type-Options Header Missing \n Evidence: null \n Solution: \u003cp\u003eEnsure that the application/web server sets the Content-Type header appropriately, and that it sets the X-Content-Type-Options header to 'nosniff' for all web pages.\u003c/p\u003e\u003cp\u003eIf possible, ensure that the end user uses a standards-compliant and modern web browser that does not perform MIME-sniffing at all, or that can be directed by the web application/web server to not perform MIME-sniffing.\u003c/p\u003e \n Other info: \u003cp\u003eThis issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\u003c/p\u003e\u003cp\u003eAt \"High\" threshold this scanner will not alert on client or server error responses.\u003c/p\u003e \n Reference: \u003cp\u003ehttp://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx\u003c/p\u003e\u003cp\u003ehttps://owasp.org/www-community/Security_Headers\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/ Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eThe Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. This allows older versions of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing the response body to be interpreted and displayed as a content type other than the declared content type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if one is set), rather than performing MIME-sniffing.\u003c/p\u003e",
+    "fingerprint": "10021_X-Content-Type-Options Header Missing_http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/token_GET",
+    "detail": "X-Content-Type-Options Header Missing \n Evidence: null \n Solution: \u003cp\u003eEnsure that the application/web server sets the Content-Type header appropriately, and that it sets the X-Content-Type-Options header to 'nosniff' for all web pages.\u003c/p\u003e\u003cp\u003eIf possible, ensure that the end user uses a standards-compliant and modern web browser that does not perform MIME-sniffing at all, or that can be directed by the web application/web server to not perform MIME-sniffing.\u003c/p\u003e \n Other info: \u003cp\u003eThis issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\u003c/p\u003e\u003cp\u003eAt \"High\" threshold this scanner will not alert on client or server error responses.\u003c/p\u003e \n Reference: \u003cp\u003ehttp://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx\u003c/p\u003e\u003cp\u003ehttps://owasp.org/www-community/Security_Headers\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/token Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eThe Anti-MIME-Sniffing header X-Content-Type-Options was not set to 'nosniff'. This allows older versions of Internet Explorer and Chrome to perform MIME-sniffing on the response body, potentially causing the response body to be interpreted and displayed as a content type other than the declared content type. Current (early 2014) and legacy versions of Firefox will use the declared content type (if one is set), rather than performing MIME-sniffing.\u003c/p\u003e",
+    "fingerprint": "10021_X-Content-Type-Options Header Missing_http://ia-timed-event-service-aat.service.core-compute-aat.internal/v2/api-docs_GET",
+    "detail": "X-Content-Type-Options Header Missing \n Evidence: null \n Solution: \u003cp\u003eEnsure that the application/web server sets the Content-Type header appropriately, and that it sets the X-Content-Type-Options header to 'nosniff' for all web pages.\u003c/p\u003e\u003cp\u003eIf possible, ensure that the end user uses a standards-compliant and modern web browser that does not perform MIME-sniffing at all, or that can be directed by the web application/web server to not perform MIME-sniffing.\u003c/p\u003e \n Other info: \u003cp\u003eThis issue still applies to error type pages (401, 403, 500, etc.) as those pages are often still affected by injection issues, in which case there is still concern for browsers sniffing pages away from their actual content type.\u003c/p\u003e\u003cp\u003eAt \"High\" threshold this scanner will not alert on client or server error responses.\u003c/p\u003e \n Reference: \u003cp\u003ehttp://msdn.microsoft.com/en-us/library/ie/gg622941%28v=vs.85%29.aspx\u003c/p\u003e\u003cp\u003ehttps://owasp.org/www-community/Security_Headers\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/v2/api-docs Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA Content-Type of text/plain was returned by the server.\u003c/p\u003e\u003cp\u003eThis is not one of the types expected to be returned by an API.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on Unexpected Content Types' script\u003c/p\u003e",
+    "fingerprint": "100001_Unexpected Content-Type was returned_http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/token/_GET",
+    "detail": "Unexpected Content-Type was returned \n Evidence: text/plain \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/token/ Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA Content-Type of text/plain was returned by the server.\u003c/p\u003e\u003cp\u003eThis is not one of the types expected to be returned by an API.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on Unexpected Content Types' script\u003c/p\u003e",
+    "fingerprint": "100001_Unexpected Content-Type was returned_http://ia-timed-event-service-aat.service.core-compute-aat.internal/_GET",
+    "detail": "Unexpected Content-Type was returned \n Evidence: text/plain \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/ Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA Content-Type of text/plain was returned by the server.\u003c/p\u003e\u003cp\u003eThis is not one of the types expected to be returned by an API.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on Unexpected Content Types' script\u003c/p\u003e",
+    "fingerprint": "100001_Unexpected Content-Type was returned_http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/token_GET",
+    "detail": "Unexpected Content-Type was returned \n Evidence: text/plain \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/token Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA Content-Type of text/plain was returned by the server.\u003c/p\u003e\u003cp\u003eThis is not one of the types expected to be returned by an API.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on Unexpected Content Types' script\u003c/p\u003e",
+    "fingerprint": "100001_Unexpected Content-Type was returned_http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction/jurisdiction/case-type/caseType/cid/10/event/event/_POST",
+    "detail": "Unexpected Content-Type was returned \n Evidence: text/plain \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction/jurisdiction/case-type/caseType/cid/10/event/event/ Method: POST",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA Content-Type of text/plain was returned by the server.\u003c/p\u003e\u003cp\u003eThis is not one of the types expected to be returned by an API.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on Unexpected Content Types' script\u003c/p\u003e",
+    "fingerprint": "100001_Unexpected Content-Type was returned_http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/system-user_GET",
+    "detail": "Unexpected Content-Type was returned \n Evidence: text/plain \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/system-user Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA Content-Type of text/plain was returned by the server.\u003c/p\u003e\u003cp\u003eThis is not one of the types expected to be returned by an API.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on Unexpected Content Types' script\u003c/p\u003e",
+    "fingerprint": "100001_Unexpected Content-Type was returned_http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/system-user/_GET",
+    "detail": "Unexpected Content-Type was returned \n Evidence: text/plain \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/system-user/ Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eA Content-Type of text/plain was returned by the server.\u003c/p\u003e\u003cp\u003eThis is not one of the types expected to be returned by an API.\u003c/p\u003e\u003cp\u003eRaised by the 'Alert on Unexpected Content Types' script\u003c/p\u003e",
+    "fingerprint": "100001_Unexpected Content-Type was returned_http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction/jurisdiction/case-type/caseType/cid/10/event/event_POST",
+    "detail": "Unexpected Content-Type was returned \n Evidence: text/plain \n Solution: \u003cp\u003e\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/testing-support/execute/jurisdiction/jurisdiction/case-type/caseType/cid/10/event/event Method: POST",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eThis page contains an error/warning message that may disclose sensitive information like the location of the file that produced the unhandled exception. This information can be used to launch further attacks against the web application. The alert could be a false positive if the error message is found inside a documentation page.\u003c/p\u003e",
+    "fingerprint": "90022_Application Error Disclosure_http://ia-timed-event-service-aat.service.core-compute-aat.internal/v2/api-docs_GET",
+    "detail": "Application Error Disclosure \n Evidence: Internal Server Error \n Solution: \u003cp\u003eReview the source code of this page. Implement custom error pages. Consider implementing a mechanism to provide a unique error reference/identifier to the client (browser) while logging the details on the server side and not exposing them to the user.\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/v2/api-docs Method: GET",
+    "severity": 2,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eThe Error Logging Modules and Handlers (ELMAH [elmah.axd]) HTTP Module was found to be available. This module can leak a significant amount of valuable information.\u003c/p\u003e",
+    "fingerprint": "40028_ELMAH Information Leak_http://ia-timed-event-service-aat.service.core-compute-aat.internal/elmah.axd_GET",
+    "detail": "ELMAH Information Leak \n Evidence: HTTP/1.1 401 Unauthorized \n Solution: \u003cp\u003eConsider whether or not ELMAH is actually required in production, if it isn't then disable it. If it is then ensure access to it requires authentication and authorization. See also: https://elmah.github.io/a/securing-error-log-pages/\u003c/p\u003e \n Other info: \u003cp\u003eBased on response status code ELMAH may be protected by an authentication or authorization mechanism.  \u003c/p\u003e \n Reference: \u003cp\u003ehttps://www.troyhunt.com/aspnet-session-hijacking-with-google/\u003c/p\u003e\u003cp\u003ehttps://www.nuget.org/packages/elmah\u003c/p\u003e\u003cp\u003ehttps://elmah.github.io/\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/elmah.axd Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  },
+  {
+    "task": "OWASP Zaproxy",
+    "appname": "http://ia-timed-event-service-aat.service.core-compute-aat.internal",
+    "description": "\u003cp\u003eThe response appeared to contain common error messages returned by platforms such as ASP.NET, and Web-servers such as IIS and Apache. You can configure the list of common debug messages.\u003c/p\u003e",
+    "fingerprint": "10023_Information Disclosure - Debug Error Messages_http://ia-timed-event-service-aat.service.core-compute-aat.internal/v2/api-docs_GET",
+    "detail": "Information Disclosure - Debug Error Messages \n Evidence: Internal Server Error \n Solution: \u003cp\u003eDisable debugging messages before pushing to production.\u003c/p\u003e \n Other info: null \n Reference: \u003cp\u003e\u003c/p\u003e",
+    "source": "URI: http://ia-timed-event-service-aat.service.core-compute-aat.internal/v2/api-docs Method: GET",
+    "severity": 1,
+    "timestamp": "2020-05-29T11:09:12.578+00:00"
+  }
+]
