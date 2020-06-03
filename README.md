@@ -5,6 +5,35 @@ Service to trigger CCD Events in the future
 There are Business needs to do actions in future with specified period of time like reminders, state change triggers etc.
 `ia-timed-event-service` allows to schedule submission for desired CCD Event with given date and time in future.
 
+### Testing application
+Unit tests and code style checks:
+```
+./gradlew build
+```
+
+Integration tests use Wiremock and Spring MockMvc framework:
+```
+./gradlew integration
+```
+
+Functional tests use started application instance:
+```
+./gradlew functional
+```
+
+### Running application
+
+`ia-timed-event-service` is common Spring Boot application. Command to run:
+```
+./gradlew bootRun
+```
+
+There is special testing endpoint included in the code. It can be activated by changing Spring profile. Command to run:
+```
+SPRING_PROFILES_ACTIVE=test ./gradlew bootRun
+```
+
+
 ### Usage
 
 Scheduling new CCD Event can be done by sending request with `TimedEvent` JSON body to `/timed-event` endpoint:
