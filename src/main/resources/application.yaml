@@ -108,6 +108,7 @@ security:
   roleEventAccess:
     caseworker-ia-caseofficer:
     - "requestHearingRequirementsFeature"
+    - "paymentPendingFeature"
     - "example"
     - "unknown"
 

@@ -48,6 +48,7 @@ public class RequestHearingRequirementsFunctionTest extends FunctionalTest {
         caseDataFixture.requestRespondentReview();
         caseDataFixture.uploadHomeOfficeAppealResponse();
         caseDataFixture.requestResponseReview();
+        caseDataFixture.endAppeal();
     }
 
     @Test
