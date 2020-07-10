@@ -42,7 +42,6 @@ public interface WithIdamStub {
         server.addStubMapping(
             new StubMapping(
                 newRequestPattern(RequestMethod.GET, urlEqualTo("/idam/o/userinfo"))
-                    .withHeader("Content-Type", equalTo("application/json"))
                     .withHeader("Authorization", equalTo("Bearer " + SYSTEM_USER_TOKEN))
                     .build(),
                 aResponse()

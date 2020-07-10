@@ -19,7 +19,7 @@ import uk.gov.hmcts.reform.timedevent.infrastructure.config.FeignConfiguration;
 )
 public interface IdamApi {
 
-    @GetMapping(value = "/o/userinfo", produces = "application/json", consumes = "application/json")
+    @GetMapping(value = "/o/userinfo", produces = "application/json")
     UserInfo userInfo(@RequestHeader(AUTHORIZATION) String userToken);
 
     @PostMapping(value = "/o/token", produces = "application/json", consumes = "application/x-www-form-urlencoded")
