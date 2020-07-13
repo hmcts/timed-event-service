@@ -158,6 +158,10 @@ dependencyCheck {
   suppressionFile = 'config/owasp/suppressions.xml'
   // excludes *Test* source configurations from scan
   skipConfigurations = configurations.collect { it.name }.findAll { it.contains('Test') }
+  analyzers {
+    // Disable scanning of .NET related binaries
+    assemblyEnabled = false
+  }
 }
 
 dependencyManagement {
