@@ -234,7 +234,7 @@ dependencies {
   implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-hystrix', version: '2.2.2.RELEASE'
   implementation group: 'uk.gov.hmcts.reform', name: 'properties-volume-spring-boot-starter', version: '0.0.4'
   implementation group: 'uk.gov.hmcts.reform', name: 'service-auth-provider-client', version: '3.1.2'
-  compile group: 'com.sun.xml.bind', name: 'jaxb-osgi', version: '2.3.3'
+  implementation group: 'com.sun.xml.bind', name: 'jaxb-osgi', version: '2.3.3'
 
   implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.10'
 
