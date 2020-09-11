@@ -32,3 +32,21 @@ resource "azurerm_key_vault_secret" "POSTGRES-PASS" {
   value        = "${module.ia_timed_event_service_database.postgresql_password}"
   key_vault_id = "${data.azurerm_key_vault.ia_key_vault.id}"
 }
+
+module "ia_timed_event_service_database_11" {
+  source             = "git@github.com:hmcts/cnp-module-postgres?ref=master"
+  product            = "${var.product}-${var.component}-postgres-11-db"
+  location           = "${var.location}"
+  env                = "${var.env}"
+  database_name      = "${var.postgresql_database_name}"
+  postgresql_user    = "${var.postgresql_user}"
+  postgresql_version = "11"
+  common_tags        = "${merge(var.common_tags, map("lastUpdated", "${timestamp()}"))}"
+  subscription       = "${var.subscription}"
+}
+
+resource "azurerm_key_vault_secret" "11-POSTGRES-PASS" {
+  name         = "${var.component}-11-POSTGRES-PASS"
+  value        = "${module.ia_timed_event_service_database_11.postgresql_password}"
+  key_vault_id = "${data.azurerm_key_vault.ia_key_vault.id}"
+}
