@@ -52,14 +52,17 @@ public class QuartzSchedulerService implements SchedulerService {
 
             quartzScheduler.scheduleJob(jobAndTrigger.getLeft(), jobAndTrigger.getRight());
 
+            String timedEventId = jobAndTrigger.getRight().getKey().getName();
+
             log.info(
-                "Timed Event scheduled for event: {}, case id: {} at: {}",
+                "Timed Event scheduled for event: {}, case id: {}, timed event id: {}, at: {}",
                 timedEvent.getEvent().toString(),
                 timedEvent.getCaseId(),
+                timedEventId,
                 timedEvent.getScheduledDateTime().toString()
             );
 
-            return jobAndTrigger.getRight().getKey().getName();
+            return timedEventId;
 
         } catch (SchedulerException e) {
 
