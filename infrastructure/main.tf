@@ -45,8 +45,8 @@ module "ia_timed_event_service_database_11" {
   subscription       = "${var.subscription}"
 }
 
-resource "azurerm_key_vault_secret" "11-POSTGRES-PASS" {
-  name         = "${var.component}-11-POSTGRES-PASS"
+resource "azurerm_key_vault_secret" "POSTGRES-PASS-11" {
+  name         = "${var.component}-POSTGRES-PASS-11"
   value        = "${module.ia_timed_event_service_database_11.postgresql_password}"
   key_vault_id = "${data.azurerm_key_vault.ia_key_vault.id}"
 }
