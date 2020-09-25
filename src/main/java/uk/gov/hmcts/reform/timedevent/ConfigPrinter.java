@@ -8,8 +8,8 @@ public class ConfigPrinter {
 
     public ConfigPrinter(
         @Value("${spring.security.oauth2.client.provider.oidc.issuer-uri}") String idamUrl,
-        @Value("${spring.security.oauth2.client.registration.oidc.client-id") String clientId,
-        @Value("${spring.security.oauth2.client.registration.oidc.client-secret") String clientSecret,
+        @Value("${spring.security.oauth2.client.registration.oidc.client-id}") String clientId,
+        @Value("${spring.security.oauth2.client.registration.oidc.client-secret}") String clientSecret,
         @Value("${idam.redirectUrl}") String redirectUrl,
         @Value("${idam.system.username}") String idamSystemUser,
         @Value("${idam.system.password}") String idamSystemPassword,
@@ -17,6 +17,8 @@ public class ConfigPrinter {
         @Value("${idam.s2s-auth.microservice}") String microservice
 
     ) {
+
+
         System.out.println("${spring.security.oauth2.client.provider.oidc.issuer-uri} [" + idamUrl + "]\n"
                            + "${spring.security.oauth2.client.registration.oidc.client-id [" + clientId + "]\n"
                            + "${spring.security.oauth2.client.registration.oidc.client-secret [" + clientSecret + "]\n"
