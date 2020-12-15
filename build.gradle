@@ -165,7 +165,7 @@ dependencyManagement {
     dependency group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.65'
 
     // CVE-2019-17569, CVE-2020-1935, CVE-2020-1938
-    dependencySet(group: 'org.apache.tomcat.embed', version: '9.0.37') {
+    dependencySet(group: 'org.apache.tomcat.embed', version: '9.0.40') {
       entry 'tomcat-embed-core'
       entry 'tomcat-embed-el'
       entry 'tomcat-embed-websocket'
@@ -217,6 +217,7 @@ dependencies {
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-quartz'
 
   implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.2.2.RELEASE'
+  implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.2'
 
   implementation group: 'org.flywaydb', name: 'flyway-core', version: '5.2.4'
   implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.13'
