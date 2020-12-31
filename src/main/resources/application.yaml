@@ -11,6 +11,10 @@ management:
       exposure:
         include: health, info, prometheus
 
+  health:
+    probes:
+      enabled: true
+
 spring:
   application:
     name: Timed Event Service
@@ -81,6 +85,8 @@ retry:
   maxRetryNumber: ${IA_SCHEDULER_MAX_RETRY_NUMBER:50}
 
 health:
+  probes:
+    enabled: true
   services:
     idam:
       uri: ${IDAM_URL:http://127.0.0.1:5000}/health
@@ -97,6 +103,7 @@ security:
     - "/"
     - "/health"
     - "/health/liveness"
+    - "/health/readiness"
     - "/loggers/**"
     - "/swagger-ui.html"
     - "/swagger-resources/**"
