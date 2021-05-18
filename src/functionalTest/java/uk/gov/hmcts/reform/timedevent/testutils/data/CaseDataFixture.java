@@ -126,13 +126,18 @@ public class CaseDataFixture {
 
     public String submitAppeal() {
 
+        Map<String, Object> noticeOfDecisionDoc = getDocumentToUpload();
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("uploadTheNoticeOfDecisionDocs", newArrayList(noticeOfDecisionDoc));
+        
         return triggerEvent(
             legalRepToken,
             s2sToken,
             legalRepUserId,
             caseId,
             "submitAppeal",
-            Collections.emptyMap()
+            data
         );
     }
 
@@ -167,17 +172,7 @@ public class CaseDataFixture {
 
     public String uploadRespondentEvidence() {
 
-        Map<String, Object> doc = new HashMap<>();
-        doc.put("document_url", "{$FIXTURE_DOC1_PDF_URL}");
-        doc.put("document_binary_url", "{$FIXTURE_DOC1_PDF_URL_BINARY}");
-        doc.put("document_filename", "{$FIXTURE_DOC1_PDF_FILENAME}");
-
-        Map<String, Object> document = new HashMap<>();
-        document.put("document", doc);
-        document.put("description", "Some new evidence");
-        Map<String, Object> respondentEvidence = new HashMap<>();
-        respondentEvidence.put("id", "1");
-        respondentEvidence.put("value", document);
+        Map<String, Object> respondentEvidence = getDocumentToUpload();
 
         Map<String, Object> data = new HashMap<>();
         data.put("respondentEvidence", newArrayList(respondentEvidence));
@@ -356,5 +351,23 @@ public class CaseDataFixture {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    private Map<String, Object> getDocumentToUpload() {
+
+        Map<String, Object> doc = new HashMap<>();
+        doc.put("document_url", "{$FIXTURE_DOC1_PDF_URL}");
+        doc.put("document_binary_url", "{$FIXTURE_DOC1_PDF_URL_BINARY}");
+        doc.put("document_filename", "{$FIXTURE_DOC1_PDF_FILENAME}");
+
+        Map<String, Object> document = new HashMap<>();
+        document.put("document", doc);
+        document.put("description", "Some new evidence");
+
+        Map<String, Object> documentWithId = new HashMap<>();
+        documentWithId.put("id", "1");
+        documentWithId.put("value", document);
+
+        return documentWithId;
     }
 }
