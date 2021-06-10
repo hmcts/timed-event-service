@@ -313,6 +313,18 @@ public class CaseDataFixture {
         );
     }
 
+    public String endAppeal() {
+
+        return triggerEvent(
+            legalRepToken,
+            s2sToken,
+            legalRepUserId,
+            caseId,
+            "endAppeal",
+            Collections.emptyMap()
+        );
+    }
+
     protected void authenticateUsers() {
         s2sToken = s2sAuthTokenGenerator.generate();
 

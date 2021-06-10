@@ -10,6 +10,7 @@ public enum Event {
     REQUEST_RESPONDENT_EVIDENCE("requestRespondentEvidence"),
     EXAMPLE("example"),
     REQUEST_HEARING_REQUIREMENTS_FEATURE("requestHearingRequirementsFeature"),
+    PAYMENT_PENDING_FEATURE("paymentPendingFeature"),
 
     @JsonEnumDefaultValue
     UNKNOWN("unknown");
