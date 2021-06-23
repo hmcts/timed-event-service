@@ -12,6 +12,8 @@ public enum Event {
     REQUEST_HEARING_REQUIREMENTS_FEATURE("requestHearingRequirementsFeature"),
     MOVE_TO_PAYMENT_PENDING("moveToPaymentPending"),
     ROLLBACK_PAYMENT("rollbackPayment"),
+    ROLLBACK_PAYMENT_TIMEOUT("rollbackPaymentTimeout"),
+    ROLLBACK_PAYMENT_TIMEOUT_TO_PAYMENT_PENDING("rollbackPaymentTimeoutToPaymentPending"),
 
     @JsonEnumDefaultValue
     UNKNOWN("unknown");
