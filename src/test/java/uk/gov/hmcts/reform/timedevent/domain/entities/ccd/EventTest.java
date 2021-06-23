@@ -14,12 +14,14 @@ class EventTest {
         assertEquals("requestHearingRequirementsFeature", Event.REQUEST_HEARING_REQUIREMENTS_FEATURE.toString());
         assertEquals("moveToPaymentPending", Event.MOVE_TO_PAYMENT_PENDING.toString());
         assertEquals("rollbackPayment", Event.ROLLBACK_PAYMENT.toString());
+        assertEquals("rollbackPaymentTimeout", Event.ROLLBACK_PAYMENT_TIMEOUT.toString());
+        assertEquals("rollbackPaymentTimeoutToPaymentPending", Event.ROLLBACK_PAYMENT_TIMEOUT_TO_PAYMENT_PENDING.toString());
     }
 
     @Test
     void if_this_test_fails_it_is_because_it_needs_updating_with_your_changes() {
 
-        assertEquals(6, Event.values().length);
+        assertEquals(8, Event.values().length);
     }
 
 }
